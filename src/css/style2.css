@@ -1,0 +1,142 @@
+/* Page prestataire*/
+
+/*Recherche prestataire*/
+
+.display{
+    display: flex;
+    justify-content:center;
+}
+
+.icon-search{
+    width: 25px;
+    height: 25px;
+    margin: 30px 10px;
+    color: black;
+}
+
+.icon-search:hover{
+    width: 30px;
+    height: 30px;
+    color: var(--bs-primary);
+}
+
+.search-btn{
+    background-color: #ffff;
+    border: none;
+}
+
+.search-label{
+    font-size: 1.8rem;
+    color: black;
+    font-weight: 600;
+    margin: 25px 30px ;
+}
+.search{
+    width: 600px;
+    border: 1px solid black;
+    color: black;
+    background-color: #fdfaf1;
+    max-height: 40px;
+    margin: 25px 0px 0px 0px;
+}
+/*End Recherche prestataire*/
+
+/*List prestataire*/
+.imagep{
+    width: 180px;
+    height: 180px;
+    border-radius: 50%;
+}
+.ligne{
+    background-color: #fdfaf1;
+    width: 80%;
+    height: 200px;
+    display: flex;
+    justify-content: space-around;
+    margin-bottom: 20px;
+    margin: 20px auto !important;
+    box-shadow: 1px 1px 8px 8px rgba(0, 0, 0, .08);
+    padding: 10px;
+}
+.MuiDataGrid-columnHeadersInner{
+    background-color: var(--bs-primary);
+    font-weight:bolder;
+
+}
+.dessus{
+    display: block;
+}
+.dessus>p{
+    width: 400px;
+}
+.ligne>h4{
+    margin: 20px;
+}
+.ligne>h6{
+    margin-top: 60px;
+}
+.ligne>p{
+    color: black;
+    font-size: 1.1rem;
+    margin-top: 0px;
+}
+
+/*End List prestataire*/
+
+/* Page prestataire End*/
+
+/*Create event*/
+.kay-fi{
+    background-color: var(--bs-primary);
+    text-align: center;
+    border-radius: 45px 45px 0px 0px;
+}
+#all-form{
+    padding: 80px 0px;
+    height: 800px;
+
+}
+.css-1fu2e3p-MuiPaper-root-MuiDialog-paper{
+    border-radius: 57px !important;
+
+}
+
+.client-contain .error{
+    margin-top: -45px;
+    padding: -10px;
+}
+
+.nav-bar .container .navbar .deco{
+    font-weight: 60px;
+}
+#valider , #annuler {
+    width: 110px;
+    height: 45px;
+    border-radius: 20px !important;
+    border: none;
+    font-weight: bold;
+    cursor: pointer;
+
+}    
+#valider:hover {
+    font-size: 1.1rem;
+    box-shadow: #fdfaf1;
+}
+#annuler:hover {
+    font-size: 1.1rem;
+    box-shadow: 12px #ac9552;
+}
+
+#valider{
+    background-color: var(--bs-primary);
+    color :rgb(0, 0, 0);
+
+}
+#annuler{
+    background-color: var(--bs-dark);
+    color :rgb(255, 255, 255);
+
+}
+
+
+/*End create event*/

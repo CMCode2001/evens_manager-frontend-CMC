@@ -1,0 +1,88 @@
+/* src/components/Header.css */
+#special{
+    font-size: 2rem;
+    font-family: "Poppins" !important;
+    font-weight: 800 !important;
+
+}
+#special1{
+    font-size: 2rem;
+    text-align: center ;
+    font-family: "Orkney" !important;
+    font-weight: 500 !important;
+
+}
+
+/* #id='special-btn' */
+#special-btn{
+    background-color: var(--bs-primary);
+}
+#topou-ma{
+    display: block;
+    text-align: center;
+}
+header.MuiPaper-root{
+    background-color: var(--bs-primary);
+    max-height: 4rem;
+}
+/* src/components/Sidebar.css */
+aside {
+    background-color: black; /* Marron foncé */
+    width: 200px;
+    min-height: 120vh;
+    float: left;
+    z-index: -9999;
+}
+
+nav ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+nav li {
+    padding: 1rem;
+    cursor: pointer;
+    list-style: circle;
+}
+
+nav a {
+    color: white;
+    text-decoration: none;
+}
+
+nav a:hover {
+    text-decoration: none
+}
+
+/* src/components/MainContent.css */
+/* main {
+    padding: 1rem;
+} */
+
+.TitleCard{
+    background-color: var(--bs-primary);
+    border-radius: 30px 30px 0px 0px;
+    margin: 0px;
+    padding: 0px;
+
+}
+.card-container {
+    display: flex;
+    justify-content: space-around;
+    position: relative;
+   
+}
+
+.card {
+    background-color: #fff;
+    border-radius: 30px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    padding: rem;
+    margin: 2rem;
+    width: 200px;
+    text-align: center;
+}
+/* src/components/Footer.css */
+.ok{
+
+}
