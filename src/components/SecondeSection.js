@@ -1,6 +1,6 @@
 import React from 'react';
 import UnService from './UnService';
-import menu2 from '../assets/img/menu2.jpg'
+// import menu2 from '../assets/img/menu2.jpg'
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';

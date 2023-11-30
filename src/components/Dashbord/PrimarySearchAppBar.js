@@ -84,7 +84,7 @@ export default function PrimarySearchAppBar() {
 
   const menuId = 'primary-search-account-menu';
   const renderMenu = (
-    <Link to ='/profileDashBord'>
+    
       <Menu
         anchorEl={anchorEl}
         anchorOrigin={{
@@ -100,11 +100,12 @@ export default function PrimarySearchAppBar() {
         open={isMenuOpen}
         onClose={handleMenuClose}
       >
-
-        <MenuItem onClick={handleMenuClose}>Profile</MenuItem>
-        <MenuItem onClick={handleMenuClose}>Deconnexion</MenuItem>
+        <Link to ='/profileDashBord'>
+            <MenuItem onClick={handleMenuClose}>Profile</MenuItem>
+        </Link>
+        {/* <MenuItem onClick={handleMenuClose}>Deconnexion</MenuItem> */}
       </Menu>
-    </Link>
+    
   );
 
   const mobileMenuId = 'primary-search-account-menu-mobile';
@@ -180,7 +181,7 @@ export default function PrimarySearchAppBar() {
                 component="div"
                 sx={{ display: { xs: 'none', sm: 'block' } }}
               >
-                  <h1 id='special'>My Admin Dashboard</h1>
+                  <h1 id='special'>My Prest Dashboard</h1>
 
               </Typography>
           

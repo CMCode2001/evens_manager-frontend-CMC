@@ -1,9 +1,15 @@
-import React from 'react'
+import React from 'react';
 
-function BlockCard2 () {
+const BlockCard2 = ({ imageSrc, title, description }) => {
   return (
-    <div>BlockCard2</div>
-  )
-}
+    <div className="card">
+      <img className="card-image" src={imageSrc} alt="Card" />
+      <div className="card-content">
+        <h1 className="card-title">{title}</h1>
+        <p className="card-description">{description}</p>
+      </div>
+    </div>
+  );
+};
 
-export default BlockCard2
+export default BlockCard2;

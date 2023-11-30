@@ -8,6 +8,7 @@ import { FormControl, InputLabel,OutlinedInput, InputAdornment, IconButton, Text
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
 import { Visibility } from "@mui/icons-material";
 import { Link } from "react-router-dom";
+import RecupereInfo from "./RecupereInfo";
 
 
 function SignInForm({username}) {
@@ -34,28 +35,41 @@ function SignInForm({username}) {
     });
   };
 
-  const handleOnSubmit = evt => {
+  // GERONS LE MODEL OUVERTURE DE CONNEXION //
+const [openModal, setOpenModal] = useState(false);  // Nouvel état pour gérer l'ouverture de la modal
 
-    console.log(state.username)
-    evt.preventDefault();
 
-    axios.post("http://localhost:8080/login",state)
-    .then(response =>{console.log(response)
-    accountService.saveToken(response.headers.authorization)
-    ;
-    if (accountService.isLogged(response.headers.authorization)){
+const handleOnSubmit = evt => {
+  evt.preventDefault();
 
-      setIsAuth(true);
-      sessionStorage.setItem("jwt", response.headers.authorization);
-      setNavigate(true)
-    }else{
-      setIsAuth(false)
-    }
+  axios.post("http://localhost:8080/login", state)
+      .then(response => {
+          accountService.saveToken(response.headers.authorization);
 
-  })
-    .catch(error=>console.log(error))
-    setError("Username ou password incorrect");
-  };
+          if (accountService.isLogged(response.headers.authorization)) {
+              const username = state.username;
+              accountService.getUsername(username);
+
+              setIsAuth(true);
+              sessionStorage.setItem("jwt", response.headers.authorization);
+              setNavigate(true);
+              setOpenModal(true);
+          } else {
+              setIsAuth(false);
+          }
+      })
+      .catch(error => {
+          console.log(error);
+          setError("Username ou password incorrect");
+      });
+};
+
+
+
+// ...
+
+  //================================================//
+
 
 
   if (navigate){
@@ -120,6 +134,8 @@ function SignInForm({username}) {
         <Link to ="#">Mot de passe oublié ?</Link>
         <button className="My-btn">Se connecter</button>
       </form>
+       {/* Modal d'informations utilisateur */}
+       <RecupereInfo open={openModal} onClose={() => setOpenModal(false)} />
     </div>
   );
 }

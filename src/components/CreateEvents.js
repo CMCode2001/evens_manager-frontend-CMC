@@ -4,12 +4,12 @@ import { SERVER_URL } from '../constants';
 import { Autocomplete,InputAdornment,DialogContent,DialogActions,Dialog,TextField,Button } from '@mui/material';
 
 import { FaPlus } from "react-icons/fa";
-import animateur from '../assets/img/animateur.jpg';
-import securite from '../assets/img/securite.jpeg';
-import foto from '../assets/img/photographe2.jpg';
-import deco from '../assets/img/decorate.jpg';
-import art from '../assets/img/artiste.jpg';
-import traiteur from '../assets/img/traiteurAfricain.jpeg';
+// import animateur from '../assets/img/animateur.jpg';
+// import securite from '../assets/img/securite.jpeg';
+// import foto from '../assets/img/photographe2.jpg';
+// import deco from '../assets/img/decorate.jpg';
+// import art from '../assets/img/artiste.jpg';
+// import traiteur from '../assets/img/traiteurAfricain.jpeg';
 
 
 

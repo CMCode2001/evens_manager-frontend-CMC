@@ -15,8 +15,13 @@ import { accountService } from '../_service/account.service';
 
 const ListPrestataire = () => {
     const [prestataires, setPrestataires] = useState([]);
+    const [isLoggedIn, setIsLoggedIn] = useState(accountService.isAuthenticated());
+
 
     useEffect(()=>{
+        const isAuthenticated = accountService.isAuthenticated();
+        setIsLoggedIn(isAuthenticated);
+
         fetchPrestataires();
     },[]);
 
@@ -32,14 +37,17 @@ const ListPrestataire = () => {
     return (
         <div>
             <h1 style={{margin: "40px 0px 40px", textAlign:"center",}}>
-                Tous les Prestataires
+                Nos Prestataires
                 <div>
-                   <Link to='/dashbordprest'  >
+                   {isLoggedIn && (
+                    <Link to='/dashbordprest'  >
                         <Fab variant="extended" id='special-btn'>
                                 <NavigationIcon  sx={{ mr: 1 }} />
                                 My Admin DashBord
                         </Fab >
-                   </Link>
+                    </Link>
+
+                   )}
                 </div>
             </h1>
                

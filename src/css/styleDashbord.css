@@ -14,6 +14,57 @@
 }
 
 /* #id='special-btn' */
+
+
+
+/* LES CARDS */
+
+.card {
+    width: 1000em !important;
+    
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    overflow: hidden;
+    margin: auto;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  .card-image {
+    width: 4rem;
+    height: 4rem;
+    margin: 15px;
+    padding: auto;
+    border-radius: 50%;
+    position:absolute;
+    display: flex;
+    
+    
+  }
+  
+  .card-content {
+    padding: 20px;
+    /* display: flex; */
+    /* margin: -20px; */
+    
+
+  }
+  
+  .card-title {
+    font-size: 2rem;
+    font-family: "Poppins"!important;
+    margin-left: 50px;
+    font-weight: 600 !important ;
+    color: var(--bs-primary);
+  }
+  
+  .card-description {
+    margin-left:40px;
+    font-size: 20px;
+    margin-bottom: 0%;
+    color: #555;
+  }
+  
+/* FIN CARDS */
 #special-btn{
     background-color: var(--bs-primary);
 }
@@ -25,6 +76,27 @@
     text-decoration: solid;
     font-weight: 600;
     font-family: "Poppins" !important;
+    color:black;
+}
+#text-About{
+   text-size-adjust: 12px;
+   text-indent: 1%;
+   text-justify: distribute;
+}
+.css-i4bv87-MuiSvgIcon-root{
+    color: white;
+}
+#topoulen-ma{
+    display:  flex;
+    margin: auto;
+    padding: 1rem;
+    padding-bottom: 2rem ;
+    
+}
+#topoulen-mafi{
+   display: flex;
+
+   
 }
 header.MuiPaper-root{
     background-color: var(--bs-primary);

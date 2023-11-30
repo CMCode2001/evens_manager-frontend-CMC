@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link, NavLink } from 'react-router-dom';
 import "../css/bootstrap.min.css";
 import 'bootstrap/dist/js/bootstrap.bundle';
@@ -9,6 +9,14 @@ import FadeMenu from './FadeMenu';
 
 
 const Navbar = () => {
+    const [username, setUsername] = useState("");
+    
+
+    // Utilisez useEffect pour mettre à jour le nom d'utilisateur au chargement du composant
+    useEffect(() => {
+        const Username = accountService.getUsername();
+        setUsername(Username);
+    }, []);
 
     const token = accountService.getToken("jwt");
     console.log(token);
@@ -38,16 +46,16 @@ const Navbar = () => {
                             {/* //=============PRECUPERATION USERNAME USER======================// */}
 
 
-                            <text>Hello,
-                                <text id='text-special'></text>
-                                </text>
+                            {/* <text> Hello,
+                                <text id='text-special'>{username}</text>
+                            </text> */}
                             <FadeMenu />
                         </>
                     ) : (
                         <>
                             <Link to="/" className="navbar-brand">
                                 <h1 className="text-primary fw-bold mb-0">
-                                    Sama <span className="text-dark">Bëss</span>
+                                    Sama <text className="text-dark">Bëss</text>
                                 </h1>
                             </Link>
                             <button className="navbar-toggler py-2 px-3" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
