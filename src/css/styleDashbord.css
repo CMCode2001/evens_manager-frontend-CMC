@@ -21,6 +21,11 @@
     display: block;
     text-align: center;
 }
+#text-special{
+    text-decoration: solid;
+    font-weight: 600;
+    font-family: "Poppins" !important;
+}
 header.MuiPaper-root{
     background-color: var(--bs-primary);
     max-height: 4rem;

@@ -17,7 +17,7 @@ import { AuthProvider } from "./components/AuthProvider";
 function App() {
   return (
     <div className="App">  
-      <AuthProvider>
+     
       
         <Routes>
           <Route path = '/' element ={<Acceuil />} />
@@ -34,7 +34,7 @@ function App() {
           <Route path = '/clientlike' element={<ClientLike />} />
         </Routes>
 
-      </AuthProvider>
+      
 
 
       

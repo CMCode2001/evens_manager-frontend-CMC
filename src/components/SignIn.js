@@ -1,20 +1,19 @@
 import axios from "axios";
 import React, { useState } from "react";
 import { accountService } from "../_service/account.service";
-import { Link, Navigate } from "react-router-dom";
+import { Navigate } from "react-router-dom";
 import { Alert } from '@mui/material';
+
 import { FormControl, InputLabel,OutlinedInput, InputAdornment, IconButton, TextField } from "@mui/material";
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
 import { Visibility } from "@mui/icons-material";
+import { Link } from "react-router-dom";
 
 
-
-function SignInForm() {
+function SignInForm({username}) {
   const [showPassword, setShowPassword] = React.useState(false);
   const [error, setError] = useState("");
 
-  // Utilisez hasLogged selon vos besoins, par exemple pour afficher un message une fois que la valeur a été loguée
- 
   const [isAuth, setIsAuth] = useState(false);
   const handleClickShowPassword = () => setShowPassword((show) => !show);
   const [navigate, setNavigate] = useState(false);
@@ -26,6 +25,7 @@ function SignInForm() {
     username: "",
     password: ""
   });
+
   const handleChange = evt => {
     const value = evt.target.value;
     setState({
@@ -35,29 +35,28 @@ function SignInForm() {
   };
 
   const handleOnSubmit = evt => {
-    console.log(state)
+
+    console.log(state.username)
     evt.preventDefault();
 
     axios.post("http://localhost:8080/login",state)
     .then(response =>{console.log(response)
-    accountService.saveToken(response.headers.authorization);
-      const token = response.headers.get("Authorisation");
+    accountService.saveToken(response.headers.authorization)
+    ;
     if (accountService.isLogged(response.headers.authorization)){
+
       setIsAuth(true);
-      sessionStorage.setItem("jwt",token);
-      //console.log(!isAuth)
-      setNavigate(true);
-    }})
+      sessionStorage.setItem("jwt", response.headers.authorization);
+      setNavigate(true)
+    }else{
+      setIsAuth(false)
+    }
+
+  })
     .catch(error=>console.log(error))
     setError("Username ou password incorrect");
   };
 
-  const logout=()=>{
-    sessionStorage.removeItem("jwt");
-    setIsAuth(false);
-  }
-  //===CONNEXION COTE CLIENT   ==//
-  //===REDIRECTION COTE CLIENT  VERS EVENTS ==//
 
   if (navigate){
     return <Navigate to={"/events"} />
@@ -76,15 +75,15 @@ function SignInForm() {
 
         <h1>Connexion</h1>
         <div className="social-contain">
-          <Link to ='' className="social">
+          <a href="#" className="social">
             <i className="fab fa-facebook-f" />
-          </Link>
-          <Link to ='' className="social">
+          </a>
+          <a href="#" className="social">
             <i className="fab fa-google-plus-g" />
-          </Link>
-          <Link to =" " className="social">
+          </a>
+          <a href="#" className="social">
             <i className="fab fa-linkedin-in" />
-          </Link>
+          </a>
         </div>
         <span>or use your account</span>
         <TextField
@@ -118,7 +117,7 @@ function SignInForm() {
             label="Password"
           />
         </FormControl>
-        <Link to="#">Mot de passe oublié ?</Link>
+        <Link to ="#">Mot de passe oublié ?</Link>
         <button className="My-btn">Se connecter</button>
       </form>
     </div>

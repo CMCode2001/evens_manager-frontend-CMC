@@ -10,6 +10,7 @@ import x from '../assets/img/bapteme.jpg'
 import test from '../assets/img/mariage.jpg'
 import d from '../assets/img/magal.jpeg'
 import { Link } from 'react-router-dom';
+import { accountService } from '../_service/account.service';
 
 
 const ListPrestataire = () => {
@@ -20,9 +21,9 @@ const ListPrestataire = () => {
     },[]);
 
     const fetchPrestataires = () => {
-        const token = sessionStorage.getItem("jwt");
+        const token = accountService.getToken("jwt");
         fetch(SERVER_URL+"event/prestataires", {
-            headers: {Authorization: "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1c2VyIiwiZXhwIjoxNzAxMDMyNzA3fQ.otyDsTjvxJNwSmmtQuK8HkaGfuHNEU_hjGWONXjYQjs"},
+            headers: {Authorization: {token}},
         })
             .then(response => response.json())
             .then(data => setPrestataires(data._embedded.prestataires))
@@ -61,7 +62,7 @@ const ListPrestataire = () => {
                     );
                 })
             }
-            {/* <RowPrestataire 
+            <RowPrestataire 
                 imagep={x} 
                 altp="Seminaire"
                 nom="Hallo Decoration"
@@ -137,7 +138,7 @@ const ListPrestataire = () => {
                 tarif="400 000fr"
                 adresse="Ziguinchor"
                 desc="NessNessi vision vous propose des photos nette et des montages videos à la hauteur de vos attentes... "
-            /> */}
+            />
         </div>
     );
 };
