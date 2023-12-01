@@ -140,3 +140,19 @@
 
 
 /*End create event*/
+#textAbout{
+    padding: 1rem 7rem  ;
+    color: black;
+    text-align: justify;
+    /* width: 80%; */
+    /* text-justify: distribute; */
+    line-height: 2rem;
+    font-size: 1.3rem;
+    font-family: "Orkney";
+}
+#text-special1{
+    color: black;
+    font-family: "Poppins";
+    font-size: 2rem;
+    
+}

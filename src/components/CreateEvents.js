@@ -12,6 +12,9 @@ import art from '../assets/img/artiste.jpg';
 import traiteur from '../assets/img/traiteurAfricain.jpeg';
 import { accountService } from '../_service/account.service';
 import axios from 'axios';
+import { jwtDecode } from 'jwt-decode';
+import { useEffect } from 'react';
+import { useState } from 'react';
 
 
 
@@ -31,6 +34,7 @@ const CreateEvents = (props) => {
       dateEvenement: "",
       description: ""
     });
+    const [clientRole, setClientRole] = useState(true)
 
     React.useEffect(()=>{
 
@@ -100,6 +104,17 @@ const CreateEvents = (props) => {
         setOptions(newOptions);
       }
     }
+
+    const isLogin = accountService.getToken("jwt");
+
+    useEffect(() => {
+        if (typeof isLogin === 'string') {
+            const client = jwtDecode(isLogin);
+            setClientRole(client.role === "CLIENT");
+        } else {
+            console.error('Le token n\'est pas une chaîne valide.');
+        }
+    }, [isLogin]);
 
   return (
     <React.Fragment >
@@ -180,7 +195,14 @@ const CreateEvents = (props) => {
             </div>
         </DialogContent>
         <DialogActions sx={{m:2}}>
-            <button id="valider" onClick={postEvenement}>Enregistrer</button>
+          {
+            clientRole ? (
+              <button id="valider" onClick={postEvenement}>Enregistrer</button>
+            ) : (<Button variant="outlined" disabled>
+            Enregistrer
+          </Button>)
+          }
+            
             <button id='annuler' onClick={handleClose}>Annuler</button>
         </DialogActions>
       </Dialog>

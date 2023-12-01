@@ -76,12 +76,30 @@
     text-decoration: solid;
     font-weight: 600;
     font-family: "Poppins" !important;
-    color:black;
+    color:rgb(0, 0, 0);
+    text-transform: capitalize;
 }
-#text-About{
+ #text-About{
+    /*  
    text-size-adjust: 12px;
    text-indent: 1%;
    text-justify: distribute;
+   color: #555; */
+  font-family: 'Arial', sans-serif;
+  line-height: 1.6;
+  text-align: justify;
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 20px;
+
+  color: #333;
+  text-align: center;
+  font-style: italic;
+  color: #777;
+  border-left: 2px solid #ccc;
+  padding-left: 20px;
+  margin-left: 20px;
+
 }
 .css-i4bv87-MuiSvgIcon-root{
     color: white;

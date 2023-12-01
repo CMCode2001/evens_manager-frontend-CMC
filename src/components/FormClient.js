@@ -7,6 +7,7 @@ import { Navigate } from 'react-router-dom';
 import { FormControl, InputLabel,OutlinedInput, InputAdornment, IconButton, TextField } from "@mui/material";
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
 import { Visibility } from "@mui/icons-material";
+import { jwtDecode } from 'jwt-decode';
 
 
 
@@ -28,6 +29,21 @@ const FormClient = () => {
   const handleMouseDownPassword = (event) => {
     event.preventDefault();
   };
+
+
+  // 
+  const roleToken = accountService.getToken("jwt");
+
+  if (typeof roleToken === 'string') {
+
+    const client = jwtDecode(roleToken);
+    const clientRole = client.role;
+    console.log(clientRole);
+  } else {
+    console.error('Le token n\'est pas une chaîne valide.');
+  }
+
+  // 
   
   
     const handleChange = evt => {

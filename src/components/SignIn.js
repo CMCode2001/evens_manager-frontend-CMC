@@ -9,6 +9,7 @@ import VisibilityOff from '@mui/icons-material/VisibilityOff';
 import { Visibility } from "@mui/icons-material";
 import { Link } from "react-router-dom";
 import RecupereInfo from "./RecupereInfo";
+import {jwtDecode} from "jwt-decode";
 
 
 function SignInForm({username}) {
@@ -34,6 +35,20 @@ function SignInForm({username}) {
       [evt.target.name]: value
     });
   };
+
+  ///GESTION DE ROLE //
+  const roleToken = accountService.getToken("jwt");
+
+  if (typeof roleToken === 'string') {
+
+    const client = jwtDecode(roleToken);
+    const clientRole = client.role;
+    console.log(clientRole);
+  } else {
+    console.error('Le token n\'est pas une chaîne valide.');
+  }
+  
+  ///////////////////
 
   // GERONS LE MODEL OUVERTURE DE CONNEXION //
 const [openModal, setOpenModal] = useState(false);  // Nouvel état pour gérer l'ouverture de la modal
@@ -73,7 +88,7 @@ const handleOnSubmit = evt => {
 
 
   if (navigate){
-    return <Navigate to={"/events"} />
+    return <Navigate to={"/"} />
   }
   return (
     <div className="form-contain sign-in-contain">

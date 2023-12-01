@@ -3,8 +3,10 @@ import hero from "../assets/img/hero.png";
 import "../css/bootstrap.min.css";
 import "../css/style.css";
 import { Link } from 'react-router-dom';
+import { accountService } from '../_service/account.service';
 
 const HeroSection = () => {
+    const token = accountService.getToken("jwt");
     return (
         <div className="container-fluid bg-light py-6 mt-0">
             <div className="container">
@@ -23,11 +25,20 @@ const HeroSection = () => {
                             <b>Bienvenue dans Sama Bëss, l'appli qui rassemble ! </b>
                             </i>
                         </p>
-                        </h1>                      
-                          <Link to ="/login" className="btn btn-primary border-0 rounded-pill py-3 px-4 px-md-5 me-4 animated bounceInLeft">
-                            Je suis Client !
-                        </Link>
-                        <Link  to ="/login" className="btn btn-primary border-0 rounded-pill py-3 px-4 px-md-5 animated bounceInLeft">Je suis Prestataire !</Link>
+                        </h1> 
+                        {(token===null) ?(
+                            <>                  
+                            <Link to ="/login" className="btn btn-primary border-0 rounded-pill py-3 px-4 px-md-5 me-4 animated bounceInLeft">
+                                Je suis Client !
+                            </Link>
+                            <Link  to ="/login" className="btn btn-primary border-0 rounded-pill py-3 px-4 px-md-5 animated bounceInLeft">
+                                Je suis Prestataire !
+                            </Link>
+                            </>
+                        ):(
+                            <></>
+                        )
+                        }
                     </div>
                     <div className="col-lg-5 col-md-12">
                         <img src={hero} className="img-fluid rounded animated zoomIn" alt="" />

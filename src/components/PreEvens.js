@@ -17,23 +17,33 @@ import { HiViewList } from "react-icons/hi";
 import { Link } from 'react-router-dom';
 
 import CreateEvens from '../components/CreateEvents';
+import { accountService } from '../_service/account.service';
 
 const PreEvens = () => {
 
+    const token = accountService.getToken("jwt");
 
     return (
         <div className="container-fluid event py-6">
             <div className="container">
                 <div className="text-center wow bounceInUp" data-wow-delay="0.1s">
+                    {/* A PARTIR D ICI */}
                     <div >
-                        <Link  >
+                    <Link  >
                             <CreateEvens />
-                        </Link>                
+                     </Link>  
+                    {
+                        token ? (
+              
                         
                         <Link to = "/listEvents">
                             <button className='myevent'><HiViewList /> MY EVENT</button>
-                        </Link> 
+                        </Link>  
+        
+                        ) : ("")
+                    }
                     </div>
+                    {/* OKKKKKKKKKKKK */}
                     <h1 className="display-5 mb-3 mt-5">Différents types d'événement</h1>
                 </div>
                 <div className="tab-class text-center">

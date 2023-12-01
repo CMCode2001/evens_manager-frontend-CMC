@@ -14,7 +14,8 @@ const FormPrestataire = () => {
     username: '',
     email: '',
     password: '',
-    password1: ''
+    password1: '',
+    role:'prestataire'
   });
 
   const [error, setError] = useState('');
@@ -96,7 +97,7 @@ const FormPrestataire = () => {
 
   if (navigate){
     alert("Inscription reussi! Cliquez sur OK pour continuer")
-    return <Navigate to={"/prestataires"}/>
+    return <Navigate to={"/dashbordprest"}/>
   }
 
     return (

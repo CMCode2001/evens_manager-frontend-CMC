@@ -28,7 +28,7 @@ const FadeMenuPrest = ()=> {
   };
 
   if (navigate){
-    return <Navigate to={"/login"}/>
+    return <Navigate to={"/"}/>
   }
   return (
     <div>

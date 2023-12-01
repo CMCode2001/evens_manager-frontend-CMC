@@ -8,24 +8,28 @@ import { accountService } from '../_service/account.service';
 import FadeMenu from './FadeMenu';
 
 
+
 const Navbar = () => {
-    const [username, setUsername] = useState("");
+    
+
     
 
     // Utilisez useEffect pour mettre à jour le nom d'utilisateur au chargement du composant
-    useEffect(() => {
-        const Username = accountService.getUsername();
-        setUsername(Username);
-    }, []);
-
     const token = accountService.getToken("jwt");
-    console.log(token);
-    
+    // useEffect(() => {
+    //     if (typeof token === 'string') {
+    //         setClient(jwtDecode(token));
+    //         console.log(client.sub)
+    //     } else {
+    //         console.error('Le token n\'est pas une chaîne valide.');
+    //     }
+
+    // }, []);
     return (
         <div className="container-fluid nav-bar">
             <div className="container">
                 <nav className="navbar navbar-light navbar-expand-lg py-4">
-                    {token ? (
+                    {(token!==null)?(
                         <>
                             <Link to="/" className="navbar-brand">
                                 <h1 className="text-primary fw-bold mb-0">
@@ -45,14 +49,18 @@ const Navbar = () => {
                             </div>
                             {/* //=============PRECUPERATION USERNAME USER======================// */}
 
-
-                            {/* <text> Hello,
-                                <text id='text-special'>{username}</text>
-                            </text> */}
                             <FadeMenu />
+
+                            {/* <Link to="/login">
+                                <button className="btn-search btn btn-primary btn-md-square me-4 rounded-circle d-lg-inline-flex">
+                                    <FaUserCircle />
+                                </button>
+                            </Link> */}
+                            
                         </>
                     ) : (
                         <>
+                            
                             <Link to="/" className="navbar-brand">
                                 <h1 className="text-primary fw-bold mb-0">
                                     Sama <text className="text-dark">Bëss</text>
@@ -74,6 +82,7 @@ const Navbar = () => {
                                     <FaUserCircle />
                                 </button>
                             </Link>    
+                            {console.log(token)}
                         </>
                     )}
                 </nav>
