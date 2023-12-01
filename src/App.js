@@ -12,6 +12,7 @@ import ClientLike from "./components/Dashbord/ClientLike";
 import Notif from "./components/Dashbord/Notif";
 import HomeDashBord from "./components/Dashbord/HomeDashBord";
 import { AuthProvider } from "./components/AuthProvider";
+import { accountService } from "./_service/account.service";
 
 
 function App() {

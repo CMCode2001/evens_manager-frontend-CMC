@@ -1,34 +1,23 @@
 import { React,useState,useEffect } from 'react';
 import RowPrestataire from './RowPrestataire';
 import { SERVER_URL } from '../constants';
-
-import Fab from '@mui/material/Fab';
-import NavigationIcon from '@mui/icons-material/Navigation';
-
 import sem from '../assets/img/seminaire.jpg'
 import x from '../assets/img/bapteme.jpg'
 import test from '../assets/img/mariage.jpg'
 import d from '../assets/img/magal.jpeg'
-import { Link } from 'react-router-dom';
 import { accountService } from '../_service/account.service';
-
 
 const ListPrestataire = () => {
     const [prestataires, setPrestataires] = useState([]);
-    const [isLoggedIn, setIsLoggedIn] = useState(accountService.isAuthenticated());
-
 
     useEffect(()=>{
-        const isAuthenticated = accountService.isAuthenticated();
-        setIsLoggedIn(isAuthenticated);
-
         fetchPrestataires();
     },[]);
 
     const fetchPrestataires = () => {
         const token = accountService.getToken("jwt");
         fetch(SERVER_URL+"event/prestataires", {
-            headers: {Authorization: {token}},
+            headers: {Authorization: token},
         })
             .then(response => response.json())
             .then(data => setPrestataires(data._embedded.prestataires))
@@ -36,21 +25,7 @@ const ListPrestataire = () => {
     };
     return (
         <div>
-            <h1 style={{margin: "40px 0px 40px", textAlign:"center",}}>
-                Nos Prestataires
-                <div>
-                   {isLoggedIn && (
-                    <Link to='/dashbordprest'  >
-                        <Fab variant="extended" id='special-btn'>
-                                <NavigationIcon  sx={{ mr: 1 }} />
-                                My Admin DashBord
-                        </Fab >
-                    </Link>
-
-                   )}
-                </div>
-            </h1>
-               
+            <h1 style={{margin: "40px 0px 40px", textAlign:"center",}}>Tous les Prestataires</h1>
             {
                 prestataires.map(pres => {                                                          
                     console.log(pres.image);
@@ -70,7 +45,7 @@ const ListPrestataire = () => {
                     );
                 })
             }
-            <RowPrestataire 
+            {/* <RowPrestataire 
                 imagep={x} 
                 altp="Seminaire"
                 nom="Hallo Decoration"
@@ -146,7 +121,7 @@ const ListPrestataire = () => {
                 tarif="400 000fr"
                 adresse="Ziguinchor"
                 desc="NessNessi vision vous propose des photos nette et des montages videos à la hauteur de vos attentes... "
-            />
+            /> */}
         </div>
     );
 };

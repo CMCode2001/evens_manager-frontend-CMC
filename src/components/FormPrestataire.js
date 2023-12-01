@@ -54,7 +54,8 @@ const FormPrestataire = () => {
         username: '',
         email: '',
         password: '',
-        password1: ''
+        password1: '',
+        role : 'prestataire'
       });
     } else if (statePrestataire.password.length < 6) {
     setSuccess('');
@@ -95,7 +96,7 @@ const FormPrestataire = () => {
 
   if (navigate){
     alert("Inscription reussi! Cliquez sur OK pour continuer")
-    return <Navigate to={"/dashbordprest"}/>
+    return <Navigate to={"/prestataires"}/>
   }
 
     return (

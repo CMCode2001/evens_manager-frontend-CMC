@@ -17,7 +17,8 @@ const FormClient = () => {
     username: "",
     mail: "",
     password: "",
-    password1: ""
+    password1: "",
+    role: "client"
   });
 
   const [showPassword, setShowPassword] = useState(false);
@@ -62,6 +63,7 @@ const FormClient = () => {
     else {
       try {
         await userService.addUser(stateClient);
+
         const response = await axios.post("http://localhost:8080/login", stateClient);
         console.log(response);
         accountService.saveToken(response.headers.authorization);
