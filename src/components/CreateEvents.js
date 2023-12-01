@@ -32,12 +32,13 @@ const CreateEvents = (props) => {
       duree: 0,
       lieu: "",
       dateEvenement: "",
-      description: ""
+      description: "",
+      pres:[],
     });
     const [clientRole, setClientRole] = useState(true)
 
     React.useEffect(()=>{
-
+      fetchPrestataires();
     },[]);
   
     const handleClickOpen = () => {
@@ -47,6 +48,13 @@ const CreateEvents = (props) => {
 
     const handleClose = () => {
       setOpen(false);
+    };
+
+    const handlePresChange = (event, newValue) => {
+      setDataIn({
+        ...dataIn,
+        pres: newValue,
+      });
     };
 
     const handleChange = evt => {
@@ -95,14 +103,16 @@ const CreateEvents = (props) => {
 
     const list = ["Familliale","Religieuse","Seminaire"];
     const display = () =>{
-      if(open===true){
-        fetchPrestataires();
-        const newOptions = prestataires.map(opt => ({
-          profile: opt.image,
-          name: opt.nomEntreprise
-        }));
-        setOptions(newOptions);
-      }
+      const newOptions = prestataires.map(opt => ({
+        label: 'Option 1',
+        profile: opt.image,
+        name: opt.nomEntreprise,
+        note: opt.starRating,
+        address:opt.addresse,
+        func:opt.fonction,
+        tar:opt.tarif,
+      }));
+      setOptions(newOptions);
     }
 
     const isLogin = accountService.getToken("jwt");
@@ -178,8 +188,11 @@ const CreateEvents = (props) => {
                             renderOption={(props, option, { selected }) => (
                                 <li {...props}>
                                     <div>
-                                        <img src={option.profile} style={{ marginRight: '8px', width: '45px', height: '45px', borderRadius: '50%' }} />
-                                        {option.name}
+                                          <b>{option.name}</b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                          {option.func}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                          {option.address}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                          {option.tar}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                          {option.note}
                                     </div>
                                 </li>
                             )}
@@ -191,6 +204,7 @@ const CreateEvents = (props) => {
                                 />
                             )}
                             required
+                            onChange={handlePresChange}
                         />
             </div>
         </DialogContent>

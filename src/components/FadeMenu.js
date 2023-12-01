@@ -56,11 +56,10 @@ export default function FadeMenu(props) {
       <button className="btn-search btn btn-primary btn-md-square me-4 rounded-circle d-lg-inline-flex">
         <FaUserCircle />
       </button>
-        <text> <b>Hello</b>,&nbsp;
+      </Button>
+      <text> <b>Hello</b>,&nbsp;
           <text id='text-special'> {username}</text>
         </text>
-
-      </Button>
       <Menu
         id="fade-menu"
         MenuListProps={{

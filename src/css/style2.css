@@ -156,3 +156,11 @@
     font-size: 2rem;
     
 }
+
+#all-form > div.MuiDialog-container.MuiDialog-scrollPaper.css-hz1bth-MuiDialog-container > div > div.MuiDialogContent-root.css-ypiqx9-MuiDialogContent-root > div > div.first-line > div.MuiAutocomplete-root.MuiAutocomplete-hasPopupIcon.css-o5mon2-MuiAutocomplete-root > div > div > div > button > svg > path{
+    color: black;
+}
+
+#all-form > div.MuiDialog-container.MuiDialog-scrollPaper.css-hz1bth-MuiDialog-container > div > div.MuiDialogContent-root.css-ypiqx9-MuiDialogContent-root > div > div.MuiAutocomplete-root.MuiAutocomplete-hasPopupIcon.css-akn2t8-MuiAutocomplete-root > div > div > div > button > svg > path{
+    color: black;
+}

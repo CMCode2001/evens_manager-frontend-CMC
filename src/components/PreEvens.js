@@ -8,7 +8,7 @@ import menu3 from "../assets/img/menu3.jpg";
 import conference from "../assets/img/conference.jpg";
 import seminaire from "../assets/img/seminaire.jpg";
 import ramadan from "../assets/img/ramadan.jpg"
-
+import dine from "../assets/img/dine.jpeg";
 
 import hbd2 from "../assets/img/hbd2.jpg";
 import gamou from "../assets/img/gamou.jpg";
@@ -83,7 +83,7 @@ const PreEvens = () => {
                                         <BoxEvens nom="Conférence" image={conference}/>                 
                                         <BoxEvens nom="Ndogou" image={ramadan}/>
                                         <BoxEvens nom="Anniversaire" image={hbd2}/>
-                                       
+                                        <BoxEvens nom="Dine de Gala" image={dine}/>
                                     </div>
                                 </div>
                             </div>
