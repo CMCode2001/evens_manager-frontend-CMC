@@ -16,7 +16,7 @@ const MainContentDashbord = () => {
                         <div id='topoulen-ma' >
                             <BlockCard2
                                 imageSrc={bilan}
-                                title="Prestation"
+                                title="Prestations"
                                 description="5 réussis"
                             />
                             <br/>

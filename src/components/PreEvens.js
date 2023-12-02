@@ -8,7 +8,7 @@ import menu3 from "../assets/img/menu3.jpg";
 import conference from "../assets/img/conference.jpg";
 import seminaire from "../assets/img/seminaire.jpg";
 import ramadan from "../assets/img/ramadan.jpg"
-
+import dine from "../assets/img/dine.jpeg";
 
 import hbd2 from "../assets/img/hbd2.jpg";
 import gamou from "../assets/img/gamou.jpg";
@@ -75,15 +75,15 @@ const PreEvens = () => {
                         <div id="tab-1" className="tab-pane fade show p-0 active">
                             <div className="row g-4">
                                 <div class="col-lg-12">
-                                    <div class="row g-5">
-                                        <BoxEvens nom="Mariage" image={mariage}/>
+                                    <div class="row g-4">
+                                        <BoxEvens nom="Mariage" image={mariage} />
                                         <BoxEvens nom="Magal Touba" image={magal}/>             
                                         <BoxEvens nom="Gamou" image={gamou}/>
                                         <BoxEvens nom="Seminaire" image={seminaire}/>
                                         <BoxEvens nom="Conférence" image={conference}/>                 
                                         <BoxEvens nom="Ndogou" image={ramadan}/>
                                         <BoxEvens nom="Anniversaire" image={hbd2}/>
-                                       
+                                        <BoxEvens nom="Dine de Gala" image={dine}/>
                                     </div>
                                 </div>
                             </div>

@@ -6,6 +6,7 @@ import NavigationIcon from '@mui/icons-material/Navigation';
 import { Link } from 'react-router-dom';
 import { accountService } from '../_service/account.service';
 import { jwtDecode } from 'jwt-decode';
+import sem from "../assets/img/seminaire.jpg";
 
 const ListPrestataire = () => {
     const [prestataires, setPrestataires] = useState([]);
@@ -43,7 +44,7 @@ const ListPrestataire = () => {
 
     return (
         <div>
-            <h1 style={{ margin: "40px 0px 40px", textAlign: "center" }}>
+            <h1 style={{ margin: "5rem", textAlign: "center" }}>
                 Nos Prestataires
                 <div>
                     {!clientRole && (
@@ -61,7 +62,7 @@ const ListPrestataire = () => {
                 return (
                     <RowPrestataire
                         key={pres.id}
-                        imagep={pres.image}
+                        imagep={sem}
                         altp="pas d'image"
                         nom={pres.nomEntreprise}
                         fonction={pres.fonction}

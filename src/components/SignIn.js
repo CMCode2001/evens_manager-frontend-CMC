@@ -1,98 +1,134 @@
 import axios from "axios";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { accountService } from "../_service/account.service";
-import { Navigate } from "react-router-dom";
+import { Await, Navigate } from "react-router-dom";
 import { Alert } from '@mui/material';
 
-import { FormControl, InputLabel,OutlinedInput, InputAdornment, IconButton, TextField } from "@mui/material";
+import {
+  FormControl,
+  InputLabel,
+  OutlinedInput,
+  InputAdornment,
+  IconButton,
+  TextField,
+} from "@mui/material";
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
-import { Visibility } from "@mui/icons-material";
+import Visibility from "@mui/icons-material/Visibility";
 import { Link } from "react-router-dom";
 import RecupereInfo from "./RecupereInfo";
-import {jwtDecode} from "jwt-decode";
+import { jwtDecode } from "jwt-decode";
+import { useRef } from "react";
+import { SERVER_URL } from "../constants";
 
-
-function SignInForm({username}) {
-  const [showPassword, setShowPassword] = React.useState(false);
+const SignInForm = (username) => {
+  const [showPassword, setShowPassword] = useState(false);
   const [error, setError] = useState("");
+  const [isLogin, setIsLogin] = useState(false);
+  const [openModal, setOpenModal] = useState(false);
 
-  const [isAuth, setIsAuth] = useState(false);
-  const handleClickShowPassword = () => setShowPassword((show) => !show);
   const [navigate, setNavigate] = useState(false);
-  const handleMouseDownPassword = (event) => {
-    event.preventDefault();
-  };
-  
-  const [state, setState] = React.useState({
+
+  const [state, setState] = useState({
     username: "",
-    password: ""
+    password: "",
   });
 
-  const handleChange = evt => {
-    const value = evt.target.value;
-    setState({
-      ...state,
-      [evt.target.name]: value
-    });
+  const handleChange = (evt) => {
+    const { name, value } = evt.target;
+    setState((prevState) => ({ ...prevState, [name]: value }));
   };
 
-  ///GESTION DE ROLE //
   const roleToken = accountService.getToken("jwt");
+  let clientRole = null;
 
+  ///// RECUPERATION ID CLIENT CONNECTE
+
+  const [cientId,setClientId]= useState(null);
+///////////////////////////////////////
   if (typeof roleToken === 'string') {
-
     const client = jwtDecode(roleToken);
-    const clientRole = client.role;
+    clientRole = client.role;
     console.log(clientRole);
   } else {
     console.error('Le token n\'est pas une chaîne valide.');
   }
+
   
-  ///////////////////
+  ////////////// VERIFIONS/////////////////
+  const isMounted = useRef(true);  
+  // Référence pour suivre l'état de montage du composant
 
-  // GERONS LE MODEL OUVERTURE DE CONNEXION //
-const [openModal, setOpenModal] = useState(false);  // Nouvel état pour gérer l'ouverture de la modal
+  ////////////////////////////////////////
+  useEffect(() => {
+    return () => {
+      //isMounted.current = false;
+      //console.log("Composant démonté");
+      
+    };
+  }, [isLogin]);
 
+  const handleOnSubmit = async (evt) => {
+    try {
+      evt.preventDefault();
 
-const handleOnSubmit = evt => {
-  evt.preventDefault();
-
-  axios.post("http://localhost:8080/login", state)
-      .then(response => {
+      axios.post("http://localhost:8080/login", state)
+        .then(response => {
           accountService.saveToken(response.headers.authorization);
 
           if (accountService.isLogged(response.headers.authorization)) {
-              const username = state.username;
-              accountService.getUsername(username);
+            const username = state.username;
+            accountService.getUsername(username);
 
-              setIsAuth(true);
-              sessionStorage.setItem("jwt", response.headers.authorization);
-              setNavigate(true);
-              setOpenModal(true);
+            // Récupérer l'ID du client connecté
+            const token = accountService.getToken();
+            fetch(SERVER_URL + "", {
+              headers: { Authorization: token },
+            })
+              .then(response => response.json())
+              .then(data => {
+                if (isMounted) {
+
+                  handleUpdateUserInfo(data.id);
+                  setClientId(data.id);
+                  setIsLogin(true);
+                  setOpenModal(true);
+                }
+              })
+              .catch(err => console.error(err));
+
+            sessionStorage.setItem("jwt", response.headers.authorization);
+            setNavigate(true);
           } else {
-              setIsAuth(false);
+            setIsLogin(false);
           }
-      })
-      .catch(error => {
+        })
+        .catch(error => {
           console.log(error);
           setError("Username ou password incorrect");
+        });
+    } catch (error) {
+      console.error("ERREUR SOUMMISSION DU FORMS", error);
+    }
+  };
+  const handleUpdateUserInfo = (clientId) => {
+    // Faire la requête PUT pour mettre à jour les informations du client
+    axios.put(`http://localhost:8080/event/clients/${clientId}`, clientId)
+      // .then(response => {
+      //   // Traiter la réponse si nécessaire
+      // })
+      .catch(error => {
+        // Gérer les erreurs de la requête PUT
+        console.error("Erreur lors de la mise à jour des informations du client", error);
       });
-};
+  };
+ 
 
-
-
-// ...
-
-  //================================================//
-
-
-
-  if (navigate){
-    return <Navigate to={"/"} />
+  if (navigate) {
+    return <Navigate to={"/"} />;
   }
+
   return (
     <div className="form-contain sign-in-contain">
-      
       <div>
         {error && (
           <Alert severity="error" className="alert">
@@ -101,56 +137,58 @@ const handleOnSubmit = evt => {
         )}
       </div>
       <form onSubmit={handleOnSubmit}>
-
-        <h1>Connexion</h1>
-        <div className="social-contain">
-          <a href="#" className="social">
-            <i className="fab fa-facebook-f" />
-          </a>
-          <a href="#" className="social">
-            <i className="fab fa-google-plus-g" />
-          </a>
-          <a href="#" className="social">
-            <i className="fab fa-linkedin-in" />
-          </a>
-        </div>
-        <span>or use your account</span>
-        <TextField
-          label="UserName"
-          id="outlined-start-adornment"
-          sx={{ m: 1}} fullWidth
-          name="username"
-          value={state.username}
-          onChange={handleChange}
-        />
-        <FormControl sx={{ m: 1}} fullWidth variant="outlined">
-          <InputLabel htmlFor="outlined-adornment-password">Password</InputLabel>
-          <OutlinedInput
-            id="outlined-adornment-password"
-            name="password"
-            value={state.password}
+          <h1>Connexion</h1>
+          <div className="social-contain">
+            <Link to ="#" className="social">
+              <i className="fab fa-facebook-f" />
+            </Link>
+            <Link to ="#" className="social">
+              <i className="fab fa-google-plus-g" />
+            </Link>
+            <Link to ="#" className="social">
+              <i className="fab fa-linkedin-in" />
+            </Link>
+          </div>
+          <span>or use your account</span>
+          <TextField
+            label="UserName"
+            id="outlined-start-adornment"
+            sx={{ m: 1 }} fullWidth
+            name="username"
+            value={state.username}
             onChange={handleChange}
-            type={showPassword ? 'text' : 'password'}
-            endAdornment={
-              <InputAdornment position="end">
-                <IconButton
-                  aria-label="toggle password visibility"
-                  onClick={handleClickShowPassword}
-                  onMouseDown={handleMouseDownPassword}
-                  edge="end"
-                >
-                  {showPassword ? <VisibilityOff /> : <Visibility />}
-                </IconButton>
-              </InputAdornment>
-            }
-            label="Password"
           />
-        </FormControl>
-        <Link to ="#">Mot de passe oublié ?</Link>
-        <button className="My-btn">Se connecter</button>
+          <FormControl sx={{ m: 1 }} fullWidth variant="outlined">
+            <InputLabel htmlFor="outlined-adornment-password">Password</InputLabel>
+            <OutlinedInput
+              id="outlined-adornment-password"
+              name="password"
+              value={state.password}
+              onChange={handleChange}
+              type={showPassword ? 'text' : 'password'}
+              endAdornment={
+                <InputAdornment position="end">
+                  <IconButton
+                    aria-label="toggle password visibility"
+                    onClick={() => setShowPassword((show) => !show)}
+                    onMouseDown={(event) => event.preventDefault()}
+                    edge="end"
+                  >
+                    {showPassword ? <VisibilityOff /> : <Visibility />}
+                  </IconButton>
+                </InputAdornment>
+              }
+              label="Password"
+            />
+          </FormControl>
+          <Link to="#">Mot de passe oublié ?</Link>
+          <button className="My-btn" open={openModal} onClose={() => setOpenModal(false)}>Se connecter</button>
+      
+      {/* Modal d'informations utilisateur */}
+      {isLogin && (
+        <RecupereInfo open={openModal} onClose={() => setOpenModal(false)}/>
+      )}
       </form>
-       {/* Modal d'informations utilisateur */}
-       <RecupereInfo open={openModal} onClose={() => setOpenModal(false)} />
     </div>
   );
 }

@@ -8,18 +8,29 @@
    *{
     box-sizing: border-box;
   } 
-  
+  div.MuiFormControl-root:nth-child(6) > div:nth-child(2) > div:nth-child(2) > button:nth-child(1) > svg:nth-child(1){
+    color: black;
+  }
+
+  .MuiSvgIcon-root{
+    color: #000;
+  }
   .App-Login {
-    background: #f6f5f7;
+    background: #ffffff;
     display: flex;
     justify-content: center;
     align-items: center;
     flex-direction: column;
     font-family: "Poppins";
-    height: 100vh;
-    margin: -20px 0 50px;
+    height: 47rem;
+    margin: -168px 0 150px;
   }
-  
+  .client-contain > form:nth-child(2){
+    padding: 0 50px;
+  }
+  .client-contain > form:nth-child(2){
+    padding: 50px;
+  }
   h1 {
     font-weight: bold;
     margin: 0;
@@ -27,8 +38,9 @@
   
   .texte-Form {
     text-align: center;
-    font-family:Verdana, Geneva, Tahoma, sans-serif;
-    margin-bottom: 10px;
+    margin-top: 15rem ;
+    font-weight: 500 !important;
+    font-size: 40px !important;
   }
   
   p {
@@ -67,6 +79,9 @@
   #btn1{
     color:white;
     font-size:2rem;
+  }
+  #contain{
+    margin-top: 2rem;
   }
   
   button:active {

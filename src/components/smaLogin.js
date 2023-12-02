@@ -16,7 +16,8 @@ export default function App() {
     "contain " + (type === "signUp" ? "right-panel-active" : "");
   return (
     <div className="App-Login">
-      <h2 className="texte-Form">Formulaire d'inscription</h2>
+      
+            <h2 className="texte-Form">Formulaire d'inscription</h2>
       <div className={containClass} id="contain">
         <SignUpForm />
         <SignInForm />

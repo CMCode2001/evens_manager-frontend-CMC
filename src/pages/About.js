@@ -5,9 +5,13 @@ import "../css/style2.css"
 
 const About = () => {
     return (
+        <>
+             <Navbar /> 
+        
         <div>
-            <Navbar /> 
+           
             
+           
             <center>
             <br/><br/><br/>
                 <h1 className="text-primary fw-bold mb-0">
@@ -19,6 +23,7 @@ const About = () => {
                                         : Créer des Moments Inoubliables</text>
                                         </center>
             <br/>
+        
             <div id='textAbout'>
                 
             Au cœur de chaque moment mémorable se trouve l'art subtil de la gestion événementielle, un ballet orchestré avec précision pour créer des expériences qui transcendent l'ordinaire. Imaginez un univers où chaque détail, chaque émotion, est tissé ensemble dans une symphonie enchanteresse.
@@ -49,6 +54,7 @@ const About = () => {
 
             <Footer /> 
         </div>
+        </>
     );
 };
 

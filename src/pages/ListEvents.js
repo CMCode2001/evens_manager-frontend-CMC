@@ -7,6 +7,10 @@ const ListEvents = () => {
     return (
         <div>
             <Navbar />
+            <br/>
+                <h1 id="special1"> Mes Evènements  </h1>
+            <br/>
+
             <MyEvents />
             <Footer />
         </div>

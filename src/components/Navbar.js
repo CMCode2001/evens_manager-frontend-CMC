@@ -26,7 +26,7 @@ const Navbar = () => {
 
     // }, []);
     return (
-        <div className="container-fluid nav-bar">
+        <div className="container-fluid nav-bar" id='fixedNavbar'>
             <div className="container">
                 <nav className="navbar navbar-light navbar-expand-lg py-4">
                     {(token!==null)?(

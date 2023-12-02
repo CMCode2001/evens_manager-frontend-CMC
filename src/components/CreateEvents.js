@@ -4,14 +4,14 @@ import { SERVER_URL } from '../constants';
 import { Autocomplete,InputAdornment,DialogContent,DialogActions,Dialog,TextField,Button } from '@mui/material';
 
 import { FaPlus } from "react-icons/fa";
-import animateur from '../assets/img/animateur.jpg';
-import securite from '../assets/img/securite.jpeg';
-import foto from '../assets/img/photographe2.jpg';
-import deco from '../assets/img/decorate.jpg';
-import art from '../assets/img/artiste.jpg';
-import traiteur from '../assets/img/traiteurAfricain.jpeg';
+// import animateur from '../assets/img/animateur.jpg';
+// import securite from '../assets/img/securite.jpeg';
+// import foto from '../assets/img/photographe2.jpg';
+// import deco from '../assets/img/decorate.jpg';
+// import art from '../assets/img/artiste.jpg';
+// import traiteur from '../assets/img/traiteurAfricain.jpeg';
 import { accountService } from '../_service/account.service';
-import axios from 'axios';
+// import axios from 'axios';
 import { jwtDecode } from 'jwt-decode';
 import { useEffect } from 'react';
 import { useState } from 'react';
@@ -21,7 +21,7 @@ import { useState } from 'react';
 const CreateEvents = (props) => {
     const [open, setOpen] = React.useState(false);
     const [prestataires, setPrestataires] = React.useState([]);
-    const token = accountService.getToken("jwt");
+    //const token = accountService.getToken("jwt");
     const [options, setOptions] = React.useState([
       {label:"", profile:"",name:""}
     ]);
@@ -32,12 +32,13 @@ const CreateEvents = (props) => {
       duree: 0,
       lieu: "",
       dateEvenement: "",
-      description: ""
+      description: "",
+      pres:[],
     });
     const [clientRole, setClientRole] = useState(true)
 
     React.useEffect(()=>{
-
+      fetchPrestataires();
     },[]);
   
     const handleClickOpen = () => {
@@ -47,6 +48,13 @@ const CreateEvents = (props) => {
 
     const handleClose = () => {
       setOpen(false);
+    };
+
+    const handlePresChange = (event, newValue) => {
+      setDataIn({
+        ...dataIn,
+        pres: newValue,
+      });
     };
 
     const handleChange = evt => {
@@ -83,7 +91,7 @@ const CreateEvents = (props) => {
           })
           .then(response=>{
             if(response.ok){
-              alert("evenement creer avec succes")
+              alert("Votre évènement est crée avec Succès ! ");
               handleClose();
             }else{
               alert("erreur de creation")
@@ -95,14 +103,16 @@ const CreateEvents = (props) => {
 
     const list = ["Familliale","Religieuse","Seminaire"];
     const display = () =>{
-      if(open===true){
-        fetchPrestataires();
-        const newOptions = prestataires.map(opt => ({
-          profile: opt.image,
-          name: opt.nomEntreprise
-        }));
-        setOptions(newOptions);
-      }
+      const newOptions = prestataires.map(opt => ({
+        label: 'Option 1',
+        profile: opt.image,
+        name: opt.nomEntreprise,
+        note: opt.starRating,
+        address:opt.addresse,
+        func:opt.fonction,
+        tar:opt.tarif,
+      }));
+      setOptions(newOptions);
     }
 
     const isLogin = accountService.getToken("jwt");
@@ -178,8 +188,11 @@ const CreateEvents = (props) => {
                             renderOption={(props, option, { selected }) => (
                                 <li {...props}>
                                     <div>
-                                        <img src={option.profile} style={{ marginRight: '8px', width: '45px', height: '45px', borderRadius: '50%' }} />
-                                        {option.name}
+                                          <b>{option.name}</b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                          {option.func}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                          {option.address}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                          {option.tar}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                          {option.note}
                                     </div>
                                 </li>
                             )}
@@ -191,6 +204,7 @@ const CreateEvents = (props) => {
                                 />
                             )}
                             required
+                            onChange={handlePresChange}
                         />
             </div>
         </DialogContent>
