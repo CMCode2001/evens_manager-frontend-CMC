@@ -7,6 +7,7 @@ function Events(props) {
     return (
         <div>
             <Navbar /> 
+
             <PreEvens />
             <Footer />
         </div>

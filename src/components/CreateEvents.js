@@ -4,14 +4,14 @@ import { SERVER_URL } from '../constants';
 import { Autocomplete,InputAdornment,DialogContent,DialogActions,Dialog,TextField,Button } from '@mui/material';
 
 import { FaPlus } from "react-icons/fa";
-import animateur from '../assets/img/animateur.jpg';
-import securite from '../assets/img/securite.jpeg';
-import foto from '../assets/img/photographe2.jpg';
-import deco from '../assets/img/decorate.jpg';
-import art from '../assets/img/artiste.jpg';
-import traiteur from '../assets/img/traiteurAfricain.jpeg';
+// import animateur from '../assets/img/animateur.jpg';
+// import securite from '../assets/img/securite.jpeg';
+// import foto from '../assets/img/photographe2.jpg';
+// import deco from '../assets/img/decorate.jpg';
+// import art from '../assets/img/artiste.jpg';
+// import traiteur from '../assets/img/traiteurAfricain.jpeg';
 import { accountService } from '../_service/account.service';
-import axios from 'axios';
+// import axios from 'axios';
 import { jwtDecode } from 'jwt-decode';
 import { useEffect } from 'react';
 import { useState } from 'react';
@@ -21,7 +21,7 @@ import { useState } from 'react';
 const CreateEvents = (props) => {
     const [open, setOpen] = React.useState(false);
     const [prestataires, setPrestataires] = React.useState([]);
-    const token = accountService.getToken("jwt");
+    //const token = accountService.getToken("jwt");
     const [options, setOptions] = React.useState([
       {label:"", profile:"",name:""}
     ]);
@@ -91,7 +91,7 @@ const CreateEvents = (props) => {
           })
           .then(response=>{
             if(response.ok){
-              alert("evenement creer avec succes")
+              alert("Votre évènement est crée avec Succès ! ");
               handleClose();
             }else{
               alert("erreur de creation")

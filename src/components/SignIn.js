@@ -1,7 +1,7 @@
 import axios from "axios";
 import React, { useState, useEffect } from "react";
 import { accountService } from "../_service/account.service";
-import { Navigate } from "react-router-dom";
+import { Await, Navigate } from "react-router-dom";
 import { Alert } from '@mui/material';
 
 import {
@@ -17,11 +17,15 @@ import Visibility from "@mui/icons-material/Visibility";
 import { Link } from "react-router-dom";
 import RecupereInfo from "./RecupereInfo";
 import { jwtDecode } from "jwt-decode";
+import { useRef } from "react";
+import { SERVER_URL } from "../constants";
 
-function SignInForm({ username }) {
+const SignInForm = (username) => {
   const [showPassword, setShowPassword] = useState(false);
   const [error, setError] = useState("");
-  const [isAuth, setIsAuth] = useState(false);
+  const [isLogin, setIsLogin] = useState(false);
+  const [openModal, setOpenModal] = useState(false);
+
   const [navigate, setNavigate] = useState(false);
 
   const [state, setState] = useState({
@@ -37,6 +41,10 @@ function SignInForm({ username }) {
   const roleToken = accountService.getToken("jwt");
   let clientRole = null;
 
+  ///// RECUPERATION ID CLIENT CONNECTE
+
+  const [cientId,setClientId]= useState(null);
+///////////////////////////////////////
   if (typeof roleToken === 'string') {
     const client = jwtDecode(roleToken);
     clientRole = client.role;
@@ -45,34 +53,75 @@ function SignInForm({ username }) {
     console.error('Le token n\'est pas une chaîne valide.');
   }
 
-  const [openModal, setOpenModal] = useState(false);
+  
+  ////////////// VERIFIONS/////////////////
+  const isMounted = useRef(true);  
+  // Référence pour suivre l'état de montage du composant
 
-  const handleOnSubmit = (evt) => {
-    evt.preventDefault();
+  ////////////////////////////////////////
+  useEffect(() => {
+    return () => {
+      //isMounted.current = false;
+      //console.log("Composant démonté");
+      
+    };
+  }, [isLogin]);
 
-    axios.post("http://localhost:8080/login", state)
-      .then(response => {
-        accountService.saveToken(response.headers.authorization);
+  const handleOnSubmit = async (evt) => {
+    try {
+      evt.preventDefault();
 
-        if (accountService.isLogged(response.headers.authorization)) {
-          const username = state.username;
-          accountService.getUsername(username);
+      axios.post("http://localhost:8080/login", state)
+        .then(response => {
+          accountService.saveToken(response.headers.authorization);
 
-          setIsAuth(true);
-          sessionStorage.setItem("jwt", response.headers.authorization);
-          setNavigate(true);
-          setOpenModal(true);
-        } 
-        else 
-        {
-          setIsAuth(false);
-        }
-      })
+          if (accountService.isLogged(response.headers.authorization)) {
+            const username = state.username;
+            accountService.getUsername(username);
+
+            // Récupérer l'ID du client connecté
+            const token = accountService.getToken();
+            fetch(SERVER_URL + "", {
+              headers: { Authorization: token },
+            })
+              .then(response => response.json())
+              .then(data => {
+                if (isMounted) {
+
+                  handleUpdateUserInfo(data.id);
+                  setClientId(data.id);
+                  setIsLogin(true);
+                  setOpenModal(true);
+                }
+              })
+              .catch(err => console.error(err));
+
+            sessionStorage.setItem("jwt", response.headers.authorization);
+            setNavigate(true);
+          } else {
+            setIsLogin(false);
+          }
+        })
+        .catch(error => {
+          console.log(error);
+          setError("Username ou password incorrect");
+        });
+    } catch (error) {
+      console.error("ERREUR SOUMMISSION DU FORMS", error);
+    }
+  };
+  const handleUpdateUserInfo = (clientId) => {
+    // Faire la requête PUT pour mettre à jour les informations du client
+    axios.put(`http://localhost:8080/event/clients/${clientId}`, clientId)
+      // .then(response => {
+      //   // Traiter la réponse si nécessaire
+      // })
       .catch(error => {
-        console.log(error);
-        setError("Username ou password incorrect");
+        // Gérer les erreurs de la requête PUT
+        console.error("Erreur lors de la mise à jour des informations du client", error);
       });
   };
+ 
 
   if (navigate) {
     return <Navigate to={"/"} />;
@@ -133,12 +182,13 @@ function SignInForm({ username }) {
             />
           </FormControl>
           <Link to="#">Mot de passe oublié ?</Link>
-          <button className="My-btn">Se connecter</button>
-      </form>
+          <button className="My-btn" open={openModal} onClose={() => setOpenModal(false)}>Se connecter</button>
+      
       {/* Modal d'informations utilisateur */}
-      {isAuth && clientRole === 'CLIENT' && (
-        <RecupereInfo open={openModal} onClose={() => setOpenModal(false)} />
+      {isLogin && (
+        <RecupereInfo open={openModal} onClose={() => setOpenModal(false)}/>
       )}
+      </form>
     </div>
   );
 }

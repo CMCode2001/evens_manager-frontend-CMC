@@ -43,7 +43,7 @@ h4, h5, h6, .h4, .h5, .h6 {
 }
 
 .py-6 {
-    padding-top: 6rem;
+    padding-top: 0%s;
     padding-bottom: 6rem;
 }
 
@@ -111,6 +111,18 @@ h4, h5, h6, .h4, .h5, .h6 {
     background-color:#fff3d8;
     border-bottom: 1px solid rgba(0, 0, 0, .05);
 }
+#fixedNavbar{
+    position:relative;
+}
+div.bg-light:nth-child(2){
+    padding-top: 13rem;
+}
+.event > div:nth-child(1){
+    margin-top: 66px;
+}
+h1.text-primary:nth-child(4){
+    margin-top: 5rem;
+}
 
 .navbar .navbar-nav .nav-link {
     padding: 10px 12px;
@@ -139,14 +151,15 @@ h4, h5, h6, .h4, .h5, .h6 {
     .navbar .nav-item .dropdown-menu {
         display: flex;
         visibility: hidden;
-        top: 100%;
+        top: 100rem;
         transform: rotateX(-75deg);
         transform-origin: 0% 0%;
         transition: .5s;
         opacity: 0;
+        margin-top: 12rem;
+        z-index: -9999;
     }
-
-    .navbar .nav-item:hover .dropdown-menu {
+        .navbar .nav-item:hover .dropdown-menu {
         transform: rotateX(0deg);
         visibility: visible;
         opacity: 1;
@@ -367,6 +380,11 @@ h4, h5, h6, .h4, .h5, .h6 {
 
 
 /*** Blog Start ***/
+#imgSpecial{
+    height: 330px;
+    width: 100px;
+    border-radius: 20px;
+}
 .blog-item {
     position: relative;
 }

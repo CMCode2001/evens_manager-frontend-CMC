@@ -44,7 +44,7 @@ const ListPrestataire = () => {
 
     return (
         <div>
-            <h1 style={{ margin: "40px 0px 40px", textAlign: "center" }}>
+            <h1 style={{ margin: "5rem", textAlign: "center" }}>
                 Nos Prestataires
                 <div>
                     {!clientRole && (

@@ -14,7 +14,7 @@ const SidebarDashBord = () => {
                 <ul>
                     <br/>
                     <li>
-                        <Link to = '/homeDashBord'> <HomeIcon/> Home</Link>
+                        <Link to = '/homeDashBord'> <HomeIcon/> Home DashBord</Link>
                     </li>
 
                     <li>

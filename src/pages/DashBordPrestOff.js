@@ -1,10 +1,10 @@
 import React from 'react';
-import LandingPage from '../components/LandingPage';
+import LandingPageDashBord from '../components/LandingPageDashBord';
 
 const DashBordPrestOff = () => {
     return (
         <div>
-            <LandingPage />
+            <LandingPageDashBord />
                       
         </div>
     );

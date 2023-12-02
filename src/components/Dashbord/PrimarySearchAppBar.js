@@ -15,7 +15,8 @@ import AccountCircle from '@mui/icons-material/AccountCircle';
 // import MailIcon from '@mui/icons-material/Mail';
 import NotificationsIcon from '@mui/icons-material/Notifications';
 import MoreIcon from '@mui/icons-material/MoreVert';
-import "../../css/styleDashbord.css"
+import "../../css/styleDashbord.css";
+import '../../css/style2.css'
 import { Link } from 'react-router-dom';
 
 const Search = styled('div')(({ theme }) => ({
@@ -100,6 +101,7 @@ export default function PrimarySearchAppBar() {
         open={isMenuOpen}
         onClose={handleMenuClose}
       >
+        
         <Link to ='/profileDashBord'>
             <MenuItem onClick={handleMenuClose}>Profile</MenuItem>
         </Link>
@@ -138,6 +140,7 @@ export default function PrimarySearchAppBar() {
         </IconButton>
         <p>Notifications</p>
       </MenuItem>
+
      </Link>
       
       <Link to='/profileDashBord'>
@@ -162,7 +165,7 @@ export default function PrimarySearchAppBar() {
     <Box sx={{ flexGrow: 1 }}>
       <AppBar position="static">
         <Toolbar>
-          
+
               <IconButton
                 size="large"
                 edge="start"
@@ -170,11 +173,14 @@ export default function PrimarySearchAppBar() {
                 aria-label="open drawer"
                 sx={{ mr: 4 }}
               >
-                <Link to ='/'>
-                  <ArrowCircleLeftIcon />
+                <Link to ='/' >
+                  <ArrowCircleLeftIcon alt="Accueil" />
                 </Link>
                 
               </IconButton>
+              
+
+              
               <Typography
                 variant="h6"
                 noWrap
@@ -195,6 +201,10 @@ export default function PrimarySearchAppBar() {
               inputProps={{ 'aria-label': 'search' }}
             />
           </Search>
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+          <text> <b>Hello</b>,&nbsp;
+          <text id='text-special'> CMC</text>
+        </text>
           <Box sx={{ flexGrow: 1 }} />
           <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
             {/* <IconButton size="large" aria-label="show 4 new mails" color="inherit">
@@ -237,6 +247,7 @@ export default function PrimarySearchAppBar() {
             >
               <MoreIcon />
             </IconButton>
+
           </Box>
         </Toolbar>
       </AppBar>

@@ -1,16 +1,17 @@
 import React from 'react';
 import "../css/bootstrap.min.css";
 import "../css/style.css";
-import menu1 from "../assets/img/menu1.jpg"
-import menu2 from "../assets/img/menu2.jpg"
-import menu3 from "../assets/img/menu3.jpg"
-import menu4 from "../assets/img/menu4.jpg"
-import menu5 from "../assets/img/menu5.jpg"
-import menu6 from "../assets/img/menu6.jpg"
+import menu1 from "../assets/img/mariage.jpg"
+import menu2 from "../assets/img/magal.jpeg"
+import menu3 from "../assets/img/soutenance.jpg"
+import menu4 from "../assets/img/coiffeuse.jpg"
+import menu5 from "../assets/img/artiste.jpg"
+import menu6 from "../assets/img/conference.jpg"
 import { SiSpringboot, SiReact, SiGithub, SiMariadb } from "react-icons/si";
 
 import { FaFacebookF,FaTwitter,FaInstagram,FaLinkedin, FaGithub, FaBootstrap } from "react-icons/fa6";
 import { Link } from 'react-router-dom';
+import ScrollToTopButton from './ScrollToTopButton';
 
 const Footer = () => {
     return (
@@ -117,7 +118,10 @@ const Footer = () => {
                 </div>
             </div>
 
-            <Link to="#" className="btn btn-md-square btn-primary rounded-circle back-to-top"><i className="fa fa-arrow-up"></i></Link>
+            {/* <Link to="#" className="btn btn-md-square btn-primary rounded-circle back-to-top">
+                <i className="fa fa-arrow-up"></i>
+            </Link> */}
+            <ScrollToTopButton/>
 
         </div>
     );
