@@ -304,3 +304,12 @@
   margin-left: 15px;
   padding: 1px;
 }
+#prenomNom{
+  display: flex;
+}
+#nomEntrepriseTelephone{
+  display: flex;
+}
+#adresseFonction{
+  display: flex;
+}

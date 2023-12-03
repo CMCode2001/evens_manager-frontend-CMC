@@ -8,7 +8,24 @@ import { FormControl, InputLabel,OutlinedInput, InputAdornment, IconButton, Text
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
 import { Visibility } from "@mui/icons-material";
 import { jwtDecode } from 'jwt-decode';
+import Backdrop from '@mui/material/Backdrop';
+import Box from '@mui/material/Box';
+import Modal from '@mui/material/Modal';
+import Fade from '@mui/material/Fade';
+import Button from '@mui/material/Button';
+import Typography from '@mui/material/Typography';
 
+const style = {
+  position: 'absolute',
+  top: '50%',
+  left: '50%',
+  transform: 'translate(-50%, -50%)',
+  width: 400,
+  bgcolor: 'background.paper',
+  border: '2px solid #000',
+  boxShadow: 24,
+  p: 4,
+  width:'600px',};
 
 
 const FormClient = () => {
@@ -19,8 +36,23 @@ const FormClient = () => {
     mail: "",
     password: "",
     password1: "",
-    role: "client"
+    role: "client",
+    nom: '',
+    prenom:'',
+    age:0,
+    sexe:'',
+    telephone:0,
+    adresse:''
   });
+
+  const [open, setOpen] = React.useState(false);
+  const handleOpen = () => setOpen(true);
+  const handleClose = () => {
+    setOpen(false);
+    setIsModalOpen(false);   
+  };
+  
+  const [isModalOpen, setIsModalOpen] = useState(false); 
 
   const [showPassword, setShowPassword] = useState(false);
 
@@ -180,7 +212,89 @@ const FormClient = () => {
                     label="Confirm Password"
                   />
                 </FormControl>
-                <button className="My-btn">S'inscrire</button>
+                <button className="My-btn" onClick={() =>setIsModalOpen(true)} type='button'>Suivant</button>
+
+                
+                <Modal
+      open={isModalOpen}
+      onClose={handleClose}
+      aria-labelledby="modal-modal-title"
+      aria-describedby="modal-modal-description"
+    >
+      <Box sx={style}>
+        <Typography id="modal-modal-title" variant="h6" component="h2">
+          <h3>Veuillez saisir les informations. </h3>
+        </Typography>
+        <form onSubmit={handleOnSubmit}>
+        <Typography id="modal-modal-description" sx={{ mt: 2 }}>
+        
+                    <div id='prenomNom'>
+                      <TextField
+                        label="Nom"
+                        type="text"
+                        id="outlined-start-adornment"
+                        sx={{ mb: 1}} fullWidth
+                        name="nom"
+                        value={stateClient.nom}
+                        onChange={handleChange}
+                      />
+                      <TextField
+                        label="Prenom"
+                        type="text"
+                        id="outlined-start-adornment"
+                        sx={{ mb: 1, marginLeft:1}} fullWidth
+                        name="prenom"
+                        value={stateClient.prenom}
+                        onChange={handleChange}
+                      />    
+                    </div>
+                    <div id='nomEntrepriseTelephone'>
+                      <TextField
+                        label="Age"
+                        type="number"
+                        id="outlined-start-adornment"
+                        sx={{ mb: 1}} fullWidth
+                        name="age"
+                        value={stateClient.age}
+                        onChange={handleChange}
+                      />
+                      <TextField
+                        label="Telephone"
+                        type="number"
+                        id="outlined-start-adornment"
+                        sx={{ mb: 1,marginLeft:1}} fullWidth
+                        name="telephone"
+                        value={stateClient.telephone}
+                        onChange={handleChange}
+                      />
+                    </div>
+                    <div id='adresseFonction'>
+                        <TextField
+                          label="Adresse"
+                          type="text"
+                          id="outlined-start-adornment"
+                          sx={{ mb: 1}} fullWidth
+                          name="adresse"
+                          value={stateClient.adresse}
+                          onChange={handleChange}
+                        />
+                        <TextField
+                          label="Sexe"
+                          type="text"
+                          id="outlined-start-adornment"
+                          sx={{ mb: 1,marginLeft:1}} fullWidth
+                          name="sexe"
+                          value={stateClient.sexe}
+                          onChange={handleChange}
+                        />
+                    </div>
+                      <button className="My-btn" type='submit'>S'inscrire</button>
+                      
+        </Typography>
+        </form>
+      </Box>
+</Modal>
+
             </form>
         </div>
   );

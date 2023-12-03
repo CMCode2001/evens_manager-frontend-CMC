@@ -8,16 +8,49 @@ import { Navigate } from 'react-router-dom';
 import { FormControl, InputLabel,OutlinedInput, InputAdornment, IconButton, TextField } from "@mui/material";
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
 import { Visibility } from "@mui/icons-material";
+import Backdrop from '@mui/material/Backdrop';
+import Box from '@mui/material/Box';
+import Modal from '@mui/material/Modal';
+import Fade from '@mui/material/Fade';
+import Button from '@mui/material/Button';
+import Typography from '@mui/material/Typography';
 
+const style = {
+  position: 'absolute',
+  top: '50%',
+  left: '50%',
+  transform: 'translate(-50%, -50%)',
+  width: 400,
+  bgcolor: 'background.paper',
+  border: '2px solid #000',
+  boxShadow: 24,
+  p: 4,
+  width:'600px',};
 const FormPrestataire = () => {
   const [statePrestataire, setStatePrestataire] = useState({
     username: '',
     email: '',
     password: '',
     password1: '',
-    role:'prestataire'
+    role:'prestataire',
+    prenom: '',
+    nom:'',
+    nomEntreprise:'',
+    desEntreprise:'',
+    telephone:'',
+    adresse:'',
+    fonction:'',
+    tarif:0
   });
 
+  const [open, setOpen] = React.useState(false);
+  const handleOpen = () => setOpen(true);
+  const handleClose = () => {
+    setOpen(false);
+    setIsModalOpen(false);   
+  };
+  
+  const [isModalOpen, setIsModalOpen] = useState(false);
   const [error, setError] = useState('');
   const [success, setSuccess] = useState('');
   const [navigate, setNavigate] = useState(false);
@@ -41,6 +74,7 @@ const FormPrestataire = () => {
    
   const handleOnSubmit = async (evt) => {
     evt.preventDefault();
+    console.log("ok");
 
     if (
       statePrestataire.email === "" ||
@@ -191,7 +225,109 @@ const FormPrestataire = () => {
                     label="Confirm Password"
                   />
                 </FormControl>
-                <button className="My-btn">S'inscrire</button>
+                <button className="My-btn" onClick={() =>setIsModalOpen(true)} type='button'>Suivant</button>
+
+                
+                <Modal
+      open={isModalOpen}
+      onClose={handleClose}
+      aria-labelledby="modal-modal-title"
+      aria-describedby="modal-modal-description"
+    >
+      <Box sx={style}>
+        <Typography id="modal-modal-title" variant="h6" component="h2">
+          <h3>Veuillez saisir les informations. </h3>
+        </Typography>
+        <form onSubmit={handleOnSubmit}>
+        <Typography id="modal-modal-description" sx={{ mt: 2 }}>
+        
+                    <div id='prenomNom'>
+                      <TextField
+                        label="Nom"
+                        type="text"
+                        id="outlined-start-adornment"
+                        sx={{ mb: 1}} fullWidth
+                        name="nom"
+                        value={statePrestataire.nom}
+                        onChange={handleChange}
+                      />
+                      <TextField
+                        label="Prenom"
+                        type="text"
+                        id="outlined-start-adornment"
+                        sx={{ mb: 1, marginLeft:1}} fullWidth
+                        name="prenom"
+                        value={statePrestataire.prenom}
+                        onChange={handleChange}
+                      />    
+                    </div>
+                    <div id='nomEntrepriseTelephone'>
+                      <TextField
+                        label="Nom entreprise"
+                        type="text"
+                        id="outlined-start-adornment"
+                        sx={{ mb: 1}} fullWidth
+                        name="nomEntreprise"
+                        value={statePrestataire.nomEntreprise}
+                        onChange={handleChange}
+                      />
+                      <TextField
+                        label="Telephone"
+                        type="number"
+                        id="outlined-start-adornment"
+                        sx={{ mb: 1,marginLeft:1}} fullWidth
+                        name="telephone"
+                        value={statePrestataire.telephone}
+                        onChange={handleChange}
+                      />
+                    </div>
+                    <div id='adresseFonction'>
+                        <TextField
+                          label="Adresse"
+                          type="text"
+                          id="outlined-start-adornment"
+                          sx={{ mb: 1}} fullWidth
+                          name="adresse"
+                          value={statePrestataire.adresse}
+                          onChange={handleChange}
+                        />
+                        <TextField
+                          label="Fonction"
+                          type="text"
+                          id="outlined-start-adornment"
+                          sx={{ mb: 1,marginLeft:1}} fullWidth
+                          name="fonction"
+                          value={statePrestataire.fonction}
+                          onChange={handleChange}
+                        />
+                    </div>
+
+                    <TextField
+                      label="Tarif"
+                      type="number"
+                      id="outlined-start-adornment"
+                      sx={{ mb: 1}} fullWidth
+                      name="tarif"
+                      value={statePrestataire.tarif}
+                      onChange={handleChange}
+                    />
+                    <TextField
+                      label="Description"
+                      type="text"
+                      id="outlined-start-adornment"
+                      sx={{ mb: 1}} fullWidth
+                      name="desEntreprise"
+                      value={statePrestataire.desEntreprise}
+                      onChange={handleChange}
+                    />
+                      <button className="My-btn" type='submit'>S'inscrire</button>
+                      
+        </Typography>
+        </form>
+      </Box>
+</Modal>
+
+
             </form>
         </div>
     );
