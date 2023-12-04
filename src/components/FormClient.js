@@ -237,6 +237,7 @@ const FormClient = () => {
                         name="nom"
                         value={stateClient.nom}
                         onChange={handleChange}
+                        required
                       />
                       <TextField
                         label="Prenom"
@@ -246,6 +247,7 @@ const FormClient = () => {
                         name="prenom"
                         value={stateClient.prenom}
                         onChange={handleChange}
+                        required
                       />    
                     </div>
                     <div id='nomEntrepriseTelephone'>
@@ -257,6 +259,7 @@ const FormClient = () => {
                         name="age"
                         value={stateClient.age}
                         onChange={handleChange}
+                        required
                       />
                       <TextField
                         label="Telephone"
@@ -266,6 +269,7 @@ const FormClient = () => {
                         name="telephone"
                         value={stateClient.telephone}
                         onChange={handleChange}
+                        required
                       />
                     </div>
                     <div id='adresseFonction'>
@@ -277,6 +281,7 @@ const FormClient = () => {
                           name="adresse"
                           value={stateClient.adresse}
                           onChange={handleChange}
+                          required
                         />
                         <TextField
                           label="Sexe"
@@ -286,6 +291,7 @@ const FormClient = () => {
                           name="sexe"
                           value={stateClient.sexe}
                           onChange={handleChange}
+                          required
                         />
                     </div>
                       <button className="My-btn" type='submit'>S'inscrire</button>

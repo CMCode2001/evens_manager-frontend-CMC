@@ -1,7 +1,6 @@
 import { React, useState } from 'react';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
-import Search from '../components/Search';
 import ListPrestataire from '../components/ListPrestataire';
 //const [searchResults, setSearchResults] = useState([]);
 
@@ -17,7 +16,6 @@ const Prestataires = () => {
     return (
         <div>
             <Navbar /> 
-            <Search />
             <ListPrestataire />
             <Footer />           
         </div>

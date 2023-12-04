@@ -250,6 +250,7 @@ const FormPrestataire = () => {
                         name="nom"
                         value={statePrestataire.nom}
                         onChange={handleChange}
+                        required
                       />
                       <TextField
                         label="Prenom"
@@ -259,6 +260,7 @@ const FormPrestataire = () => {
                         name="prenom"
                         value={statePrestataire.prenom}
                         onChange={handleChange}
+                        required
                       />    
                     </div>
                     <div id='nomEntrepriseTelephone'>
@@ -270,6 +272,7 @@ const FormPrestataire = () => {
                         name="nomEntreprise"
                         value={statePrestataire.nomEntreprise}
                         onChange={handleChange}
+                        required
                       />
                       <TextField
                         label="Telephone"
@@ -279,6 +282,7 @@ const FormPrestataire = () => {
                         name="telephone"
                         value={statePrestataire.telephone}
                         onChange={handleChange}
+                        required
                       />
                     </div>
                     <div id='adresseFonction'>
@@ -290,6 +294,7 @@ const FormPrestataire = () => {
                           name="adresse"
                           value={statePrestataire.adresse}
                           onChange={handleChange}
+                          required
                         />
                         <TextField
                           label="Fonction"
@@ -299,6 +304,7 @@ const FormPrestataire = () => {
                           name="fonction"
                           value={statePrestataire.fonction}
                           onChange={handleChange}
+                          required
                         />
                     </div>
 
@@ -310,6 +316,7 @@ const FormPrestataire = () => {
                       name="tarif"
                       value={statePrestataire.tarif}
                       onChange={handleChange}
+                      required
                     />
                     <TextField
                       label="Description"
@@ -319,6 +326,7 @@ const FormPrestataire = () => {
                       name="desEntreprise"
                       value={statePrestataire.desEntreprise}
                       onChange={handleChange}
+                      required
                     />
                       <button className="My-btn" type='submit'>S'inscrire</button>
                       
