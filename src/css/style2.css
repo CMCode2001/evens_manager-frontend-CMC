@@ -167,6 +167,9 @@
 #all-form > div.MuiDialog-container.MuiDialog-scrollPaper.css-hz1bth-MuiDialog-container > div > div.MuiDialogContent-root.css-ypiqx9-MuiDialogContent-root > div > div.MuiAutocomplete-root.MuiAutocomplete-hasPopupIcon.css-akn2t8-MuiAutocomplete-root > div > div > div > button > svg > path{
     color: black;
 }
+.footer > div:nth-child(1){
+    padding-top: 2rem;
+}
 
 .MuiDataGrid-main{
     display: flex;
