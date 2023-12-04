@@ -57,7 +57,7 @@ export default function FadeMenu(props) {
         <FaUserCircle />
       </button>
       </Button>
-      <text> <b>Hello</b>,&nbsp;
+        <text> <b>Hello</b>,&nbsp;
           <text id='text-special'> {username}</text>
         </text>
       <Menu
