@@ -25,9 +25,10 @@ const SignInForm = (username) => {
   const [error, setError] = useState("");
   const [isLogin, setIsLogin] = useState(false);
   const [openModal, setOpenModal] = useState(false);
-
+  const [recuClient,setRecuClient] = useState("");
   const [navigate, setNavigate] = useState(false);
-
+  const [navigatePres, setNavigatePres] = useState("");
+  const [navigateClient, setNavigateClient] = useState("");
   const [state, setState] = useState({
     username: "",
     password: "",
@@ -39,8 +40,17 @@ const SignInForm = (username) => {
   };
 
   const roleToken = accountService.getToken("jwt");
-  let clientRole = null;
 
+  useEffect(() => {
+    if (typeof isLogin === 'string') {
+        const client = jwtDecode(isLogin);
+        console.log(client.role);
+    } else {
+        console.error('Le token n\'est pas une chaîne valide.');
+    }
+}, [isLogin]);
+
+  let clientRole = null;
   ///// RECUPERATION ID CLIENT CONNECTE
 
   const [cientId,setClientId]= useState(null);
@@ -49,10 +59,10 @@ const SignInForm = (username) => {
     const client = jwtDecode(roleToken);
     clientRole = client.role;
     console.log(clientRole);
+
   } else {
     console.error('Le token n\'est pas une chaîne valide.');
   }
-
   
   ////////////// VERIFIONS/////////////////
   const isMounted = useRef(true);  
@@ -67,6 +77,7 @@ const SignInForm = (username) => {
     };
   }, [isLogin]);
 
+  
   const handleOnSubmit = async (evt) => {
     try {
       evt.preventDefault();
@@ -97,6 +108,7 @@ const SignInForm = (username) => {
               .catch(err => console.error(err));
 
             sessionStorage.setItem("jwt", response.headers.authorization);
+      
             setNavigate(true);
           } else {
             setIsLogin(false);
@@ -123,9 +135,17 @@ const SignInForm = (username) => {
   };
  
 
-  if (navigate) {
-    return <Navigate to={"/"} />;
+   if (navigate) {
+     return <Navigate to={"/events"} />;
   }
+
+  // if (navigateClient){
+  //   return <Navigate to={"/events"} />;
+  // }
+
+  // if (navigatePres){
+  //   return <Navigate to={"/dashbordprest"} />;
+  // }
 
   return (
     <div className="form-contain sign-in-contain">

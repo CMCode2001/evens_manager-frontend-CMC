@@ -13,7 +13,7 @@ import Form from 'react-bootstrap/Form';
 import { FaSearch } from "react-icons/fa";
 import '../css/style2.css';
 
-import Search from '../components/Search';
+// import Search from '../components/Search';
 
 
 const ListPrestataire = (props) => {
@@ -106,7 +106,7 @@ const ListPrestataire = (props) => {
                         </Link>
                     )}
                 </div>
-                <Search />
+                {/* <Search /> */}
             </h1>
             {searchTriggered && filterPrestataires().map(pres => (
                 <RowPrestataire
