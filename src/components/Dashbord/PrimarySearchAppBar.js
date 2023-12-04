@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React, { useState } from 'react';
 import { styled, alpha } from '@mui/material/styles';
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
@@ -18,6 +18,8 @@ import MoreIcon from '@mui/icons-material/MoreVert';
 import "../../css/styleDashbord.css";
 import '../../css/style2.css'
 import { Link } from 'react-router-dom';
+import { jwtDecode } from 'jwt-decode';
+import { accountService } from '../../_service/account.service';
 
 const Search = styled('div')(({ theme }) => ({
   position: 'relative',
@@ -60,9 +62,10 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 }));
 
 export default function PrimarySearchAppBar() {
-  const [anchorEl, setAnchorEl] = React.useState(null);
-  const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
-
+  const [anchorEl, setAnchorEl] = useState(null);
+  const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = useState(null);
+  const [username, setUsername] = useState("");
+  const [token, setToken] = useState(accountService.getToken("jwt"));
   const isMenuOpen = Boolean(anchorEl);
   const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
 
@@ -82,6 +85,17 @@ export default function PrimarySearchAppBar() {
   const handleMobileMenuOpen = (event) => {
     setMobileMoreAnchorEl(event.currentTarget);
   };
+
+  React.useEffect(() => {
+    if (typeof token === 'string') {
+        const client=jwtDecode(token);
+        setUsername(client.sub)
+        console.log(client.sub)
+    } else {
+        console.error('Le token n\'est pas une chaîne valide.');
+    }
+
+},[]);
 
   const menuId = 'primary-search-account-menu';
   const renderMenu = (
@@ -134,7 +148,7 @@ export default function PrimarySearchAppBar() {
           aria-label="show 17 new notifications"
           color="inherit"
         >
-          <Badge badgeContent={4} color="error">
+          <Badge badgeContent={1} color="error">
             <NotificationsIcon />
           </Badge>
         </IconButton>
@@ -202,8 +216,11 @@ export default function PrimarySearchAppBar() {
             />
           </Search>
           &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
           <text> <b>Hello</b>,&nbsp;
-          <text id='text-special'> CMC</text>
+          <text id='text-special'> {username}</text>
         </text>
           <Box sx={{ flexGrow: 1 }} />
           <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
@@ -218,7 +235,7 @@ export default function PrimarySearchAppBar() {
                 aria-label="show 17 new notifications"
                 color="inherit"
               >
-                <Badge badgeContent={4} color="error">
+                <Badge badgeContent={1} color="error">
                   <NotificationsIcon />
                 </Badge>
               </IconButton>

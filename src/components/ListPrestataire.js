@@ -7,17 +7,25 @@ import { Link } from 'react-router-dom';
 import { accountService } from '../_service/account.service';
 import { jwtDecode } from 'jwt-decode';
 import sem from "../assets/img/seminaire.jpg";
+
 import "../css/bootstrap.min.css";
 import Form from 'react-bootstrap/Form';
 import { FaSearch } from "react-icons/fa";
 import '../css/style2.css';
 
+import Search from '../components/Search';
+
+
 const ListPrestataire = (props) => {
     const [prestataires, setPrestataires] = useState([]);
     const [clientRole, setClientRole] = useState(true);
     const [isLoggedIn, setIsLoggedIn] = useState(accountService.isAuthenticated());
+
     const [query, setQuery] = useState('');
     const [searchTriggered, setSearchTriggered] = useState(false);
+
+    const [data,setData] = useState([]);
+
 
     const handleChange = (event) => {
         event.preventDefault();
@@ -98,6 +106,7 @@ const ListPrestataire = (props) => {
                         </Link>
                     )}
                 </div>
+                <Search />
             </h1>
             {searchTriggered && filterPrestataires().map(pres => (
                 <RowPrestataire
