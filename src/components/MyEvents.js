@@ -51,7 +51,7 @@ export default function DataGridDemo() {
       sortable:false,
       filterable: false,
       renderCell: row => (
-          <Button  onClick={() => onePresClick(jwtDecode(accountService.getToken("jwt")).id)} >
+          <Button  onClick={() => onePresClick(row.id)} >
               <Avatar />
           </Button>
       ),
@@ -92,7 +92,7 @@ export default function DataGridDemo() {
 
 
   const fetchEvents = (token,userId) => {
-      fetch(SERVER_URL+`event/evenements/${userId}`, {
+      fetch(SERVER_URL+`event/evenements/${userId}/client`, {
           headers: {Authorization: token},
       })
           .then(response => response.json())
@@ -101,7 +101,7 @@ export default function DataGridDemo() {
   };
 
   const oneDelEvent = id => {
-    if (window.confirm("Etes vous sur de vouloir supprimer la voiture? :(")) {
+    if (window.confirm("Etes vous sur de vouloir supprimer l'evenement ? :(")) {
         const token = accountService.getToken("jwt");
         fetch(SERVER_URL+`/event/evenements/${id}`, { 
             method: "DELETE",
@@ -121,13 +121,13 @@ export default function DataGridDemo() {
 
   const onePresClick = id => {
     const token = accountService.getToken("jwt");
-    fetch(SERVER_URL+`event/evenemts/${id}/prestataires`, {
+    fetch(SERVER_URL+`event/evenements/${id}/prestations`, {
         headers: {Authorization: token},
     })
         .then(response => response.json())
         .then(ownerData => {
-            console.log(ownerData);
-            setPrestataires(ownerData);
+            console.log(ownerData.prestataires);
+            setPrestataires(ownerData.prestataires);
             setOpenO(true);
         })
         .catch(err => console.error(err));
@@ -143,22 +143,16 @@ export default function DataGridDemo() {
           initialState={{
             pagination: {
               paginationModel: {
-                pageSize: 5,
+                pageSize: 15,
               },
             },
           }}
-          pageSizeOptions={[5]}
-          checkboxSelection
+          pageSizeOptions={[15]}
           disableRowSelectionOnClick
         />
       </Box>
       <VuePres 
-        nomEntreprise={prestataires.nomEntreprise}
-        fonction={prestataires.fonction}
-        email={prestataires.email}
-        telephone={prestataires.telephone}
-        tarif={prestataires.tarif}
-        note={prestataires.note}
+        rows={prestataires}
         open={openO} 
         handleClose={()=>{setOpenO(false)}}
        />

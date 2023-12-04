@@ -16,9 +16,40 @@
 /* #id='special-btn' */
 
 
+.MuiIconButton-colorSuccess > svg:nth-child(1){
+    color: rgb(255, 255, 255);
+}
+.MuiIconButton-colorSuccess{
+    background-color: #336633;
+    border-radius: 50px;
+}
+#btnAColorier{
+    background-color: #1b741b;
+   
+}
+/* #Btndanger, .MuiSvgIcon-colorDanger{
+    
+    background-color: red;
 
+}
+.MuiSvgIcon-colorDanger{
+    background-color: red;
+    border-radius: 50px; 
+}
+.MuiSvgIcon-colorDanger{
+    background-color: red;
+
+}*/
+.MuiSvgIcon-colorDanger > path:nth-child(1){
+    color: rgb(255, 0, 0);
+} */
 /* LES CARDS */
-
+.css-1wxstni-MuiSvgIcon-root{
+    width: 40px;
+    height: 40px;
+    border-radius: 11rem;
+    background-color: #cfcfcf;
+}
 .card {
     width: 1000em !important;
     

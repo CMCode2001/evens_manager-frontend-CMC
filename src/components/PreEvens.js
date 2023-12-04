@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import "../css/bootstrap.min.css";
 import "../css/style.css";
 import BoxEvens from './BoxEvens';
@@ -18,31 +18,43 @@ import { Link } from 'react-router-dom';
 
 import CreateEvens from '../components/CreateEvents';
 import { accountService } from '../_service/account.service';
+import { jwtDecode } from 'jwt-decode';
 
 const PreEvens = () => {
-
+    const [role,setRole]=useState("");
     const token = accountService.getToken("jwt");
+    useEffect(()=>{
+    if (token) {
+        const inf = jwtDecode(token);
+        setRole(inf.role);
+        console.log(role);
+    }},[]);
+
 
     return (
         <div className="container-fluid event py-6">
             <div className="container">
                 <div className="text-center wow bounceInUp" data-wow-delay="0.1s">
                     {/* A PARTIR D ICI */}
-                    <div >
-                    <Link  >
-                            <CreateEvens />
-                     </Link>  
                     {
-                        token ? (
-              
-                        
-                        <Link to = "/listEvents">
-                            <button className='myevent'><HiViewList /> MY EVENT</button>
+                        (token!=null && role!=="PRESTATAIRE") ? ( 
+                        <div >
+                            <Link>
+                                <CreateEvens />
+                            </Link>  
+                            <Link to = "/listEvents">
+                                <button className='myevent'><HiViewList /> MY EVENT</button>
+                            </Link>  
+                        </div>        
+                        ) : (role!="PRESTATAIRE")? (
+                        <Link to={"/login"} >
+                            <CreateEvens />
                         </Link>  
-        
-                        ) : ("")
+                        ):(
+                           null 
+                        )
                     }
-                    </div>
+
                     {/* OKKKKKKKKKKKK */}
                     <h1 className="display-5 mb-3 mt-5">Différents types d'événement</h1>
                 </div>

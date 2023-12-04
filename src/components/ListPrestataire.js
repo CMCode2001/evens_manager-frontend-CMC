@@ -7,11 +7,13 @@ import { Link } from 'react-router-dom';
 import { accountService } from '../_service/account.service';
 import { jwtDecode } from 'jwt-decode';
 import sem from "../assets/img/seminaire.jpg";
+import Search from '../components/Search';
 
-const ListPrestataire = () => {
+const ListPrestataire = (props) => {
     const [prestataires, setPrestataires] = useState([]);
     const [clientRole, setClientRole] = useState(true);
     const [isLoggedIn, setIsLoggedIn] = useState(accountService.isAuthenticated());
+    const [data,setData] = useState([]);
 
     useEffect(() => {
         const isAuthenticated = accountService.isAuthenticated();
@@ -56,6 +58,7 @@ const ListPrestataire = () => {
                         </Link>
                     )}
                 </div>
+                <Search />
             </h1>
             {prestataires.map(pres => {
                 console.log(pres.image);

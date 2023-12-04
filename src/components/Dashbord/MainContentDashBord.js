@@ -23,7 +23,7 @@ const MainContentDashbord = () => {
 
                             <BlockCard2
                                 imageSrc={solde}
-                                title="Solde Actuel"
+                                title="Tarif Actuel"
                                 description="54.600 Fcfa"
                             />
                             <br/>
