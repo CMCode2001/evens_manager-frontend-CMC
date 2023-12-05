@@ -57,43 +57,46 @@ const columns = [
         sortable: false,
         filterable: false,
         renderCell: row =>{
-            if(hidec==="display"){
+            if(row.row.valide==="en attente"){
                 return(
-                <IconButton  id = 'btnAColorier' color="success" aria-label="Valider" onClick={()=>confirmation(row.id,"Confirmé")}>
-                    <Check />
-                </IconButton>
+                <div >
+                    <IconButton  id = 'btnAColorier' color="success" aria-label="Valider" onClick={()=>confirmation(row.id,"Confirmé")}>
+                        <Check />
+                    </IconButton>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    <IconButton id="danger" color="error" onClick={()=>confirmation(row.id,"Refusé")}>
+                        <Clear color="error" />
+                    </IconButton>
+                </div>
                 )
-            }else if(hidec==="displaytext") {
-                setHider("hide");
+            }else if(row.row.valide==="Confirmé") {
                 return(
                     <p style={{color:"green"}}>Confirmé</p>
                 )
-            }else{
-                return null;
+            }else if(row.row.valide==="Refusé"){
+                return (
+                    <p style={{color:"red"}}>Refusé</p>)
             }
         }
         },
-    {
-    field: 'btn',
-    headerName: "",
-    sortable: false,
-    filterable: false,
-    renderCell: row =>{
-            if(hider==="display"){
-                return(
-                <IconButton id="danger" color="error" onClick={()=>confirmation(row.id,"Refusé")}>
-                    <Clear color="error" />
-                </IconButton>
-                )
-            }else if (hider==="displayrtext"){
-                setHidec("hide")
-                return(
-                <p style={{color:"red"}}>Refusé</p>)
-            }else{
-                return null;
-            }
-        }
-    },
+    // {
+    // field: 'btn',
+    // headerName: "",
+    // sortable: false,
+    // filterable: false,
+    // renderCell: row =>{
+    //         if(row.row.valide==="en attente"){
+    //             return(
+
+    //             )
+    //         }else if (row.row.valide==="Confirmé"){
+    //             return(
+    //             <p style={{color:"red"}}>Refusé</p>)
+    //         }else{
+    //             return null;
+    //         }
+    //     }
+    // },
 
   ];
     const recupId = () =>{
@@ -108,19 +111,55 @@ const columns = [
         fetch(SERVER_URL+`event/prestataires/${id}/prestations`, {
             headers: {Authorization: token},
         })
-            .then(response => response.json())
-            .then(data => {
-                console.log(data);
-                const evenements = data.map(item => item.evenement);
-
-                setRows(evenements);
-                console.log(rows);
-                
-                // setPrestataires(ownerData);
-                // setOpenO(true);
-            })
-            .catch(err => console.error(err));
+        .then(response => {
+            if (response.status === 200) {
+                return response.json();
+            }
+            return null;
+        })
+        .then(ownerData => {
+            const ownerDataWithValideField = ownerData.map(item => {
+                return {
+                    ...item,
+                    evenement: { ...item.evenement, valide: item.valide }
+                };
+            });
+  
+            const evenements = ownerDataWithValideField.map(item => item.evenement);
+            console.log(evenements);
+            setRows(evenements);
+            console.log(rows);
+        })
+        .catch(err => console.error(err));
     }
+    // const onePresClick = id => {
+    //     const token = accountService.getToken("jwt");
+    //     fetch(SERVER_URL + `event/evenements/${id}/prestations`, {
+    //         headers: { Authorization: token },
+    //     })
+    //         .then(response => {
+    //             if (response.status === 200) {
+    //                 return response.json();
+    //             }
+    //             return null;
+    //         })
+    //         .then(ownerData => {
+    //             // Ajouter le champ "valide" à chaque objet prestataire
+    //             const ownerDataWithValideField = ownerData.map(item => {
+    //                 return {
+    //                     ...item,
+    //                     prestataire: { ...item.prestataire, valide: item.valide }
+    //                 };
+    //             });
+      
+    //             const prestataires = ownerDataWithValideField.map(item => item.prestataire);
+    //             console.log(prestataires);
+    //             setPrestataires(prestataires);
+    //             console.log(prestataires);
+    //             setOpenO(true);
+    //         })
+    //         .catch(err => console.error(err));
+    //   };
 
     const donnes = (chaine) => {
         return {valide:chaine};
