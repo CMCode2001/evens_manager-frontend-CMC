@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Avatar, Box, Dialog } from '@mui/material';
+import { Box, Dialog } from '@mui/material';
 import { DialogActions } from '@mui/material';
 import { DialogContent } from '@mui/material';
 import { DialogTitle } from '@mui/material';
@@ -7,8 +7,12 @@ import { Button } from '@mui/material';
 import  Clear from '@mui/icons-material/Clear'
 import Stack from '@mui/material/Stack';
 import { DataGrid } from '@mui/x-data-grid';
+import DeleteIcon from '@mui/icons-material/Delete';
+import { accountService } from '../_service/account.service';
+import { SERVER_URL } from '../constants';
 
-function Owner(props) {
+
+function VuePres(props) {
 
     const columns = [
         {
@@ -26,13 +30,13 @@ function Owner(props) {
         {
           field: 'adresse',
           headerName: 'Adresse',
-          width: 1500,
+          width: 110,
           editable: false,
         },
         {
           field: 'telephone',
           headerName: 'Telephone',
-          width: 100,
+          width: 110,
           editable: false,
         },
         {
@@ -48,26 +52,63 @@ function Owner(props) {
             filterable: false,
           },
         {
-          field:'getStarRating',
+          field:'starRating',
           headerName: "Note",
-          width:150,
+          width:100,
           sortable:false,
           filterable: false,
         },
       {
-        field: 'valide',
+        field: '',
         headerName: "Etat",
         sortable:false,
         filterable: false,
+        renderCell: row =>(
+          (row.row.valide==="Confirmé") ? 
+          <p style={{color:"green"}}>Confirmé</p> :
+          (row.row.valide==="Refusé") ? 
+          <p style={{color:"red"}}>Refusé</p> :
+          <p>en attente</p> 
+        )
+      },
+      {
+        field: 'other',
+        headerName: "Etat",
+        sortable:false,
+        filterable: false,
+        renderCell: row =>(
+          <Button  color='error' onClick={()=>{oneDelPrest(row.id)}} >  
+            <DeleteIcon color='error' variant="outlined"/>
+          </Button>
+        )
       },
       ];
+
+      const oneDelPrest = (idp) => {
+        if (window.confirm("Etes vous sur de vouloir supprimer l'evenement ? :(")) {
+            const token = accountService.getToken("jwt");
+            fetch(SERVER_URL+`event/prestations/${props.ide}/${idp}`, { 
+                method: "DELETE",
+                headers: {Authorization: token}, 
+            })
+            .then(response => {
+                if (response.ok){
+                  alert("Suppression Resussi! :)");
+                  window.location.reload()
+                } else{
+                  alert("Un problème est survenu lors de la suppression! Reéssayer :(");
+                }
+            })
+            .catch(err => console.error(err)); 
+        }
+      };
     
     return (
         <div>
-            <Dialog open={props.open} onClose={props.handleClose}>
+            <Dialog open={props.open} maxWidth="100%" onClose={props.handleClose}>
                 <DialogTitle>Prestataires de votre evenement</DialogTitle>
                 <DialogContent>
-                <Box sx={{ height: 650, width: '100%' }}>
+                <Box sx={{ height: 650, width: "1100px" }}>
                     <DataGrid
                     rows={props.rows}
                     getRowId={row => row.id}
@@ -94,4 +135,4 @@ function Owner(props) {
     );
 }
 
-export default Owner;
+export default VuePres;

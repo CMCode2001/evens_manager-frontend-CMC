@@ -67,14 +67,32 @@ const ListPrestataire = (props) => {
         }
     }, [isLogin]);
 
+    // const fetchPrestataires = () => {
+    //     const token = accountService.getToken("jwt");
+    //     fetch(SERVER_URL + "event/prestataires", {
+    //         headers: { Authorization: token },
+    //     })
+    //         .then(response => response.json())
+    //         .then(data => setPrestataires(data._embedded.prestataires))
+    //         .catch(err => console.error(err));
+    // };
+
     const fetchPrestataires = () => {
         const token = accountService.getToken("jwt");
-        fetch(SERVER_URL + "event/prestataires", {
-            headers: { Authorization: token },
+        fetch(SERVER_URL+"event/prestataires", {
+            headers: {Authorization: token},
         })
-            .then(response => response.json())
-            .then(data => setPrestataires(data._embedded.prestataires))
+            .then(response => {
+                if (response.status === 200) {
+                    return response.json();    
+                }
+                return null;
+            })
+            .then(data => {
+                setPrestataires(data._embedded.prestataires)
+            })
             .catch(err => console.error(err));
+            console.log(prestataires);
     };
 
     return (
@@ -106,7 +124,7 @@ const ListPrestataire = (props) => {
                         </Link>
                     )}
                 </div>
-                {/* <Search /> */}
+
             </h1>
             {searchTriggered && filterPrestataires().map(pres => (
                 <RowPrestataire

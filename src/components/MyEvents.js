@@ -8,7 +8,9 @@ import { SERVER_URL } from '../constants';
 import { Edit } from '@mui/icons-material';
 import DeleteIcon from '@mui/icons-material/Delete';
 import { Avatar, Button } from '@mui/material';
+import AddOutlinedIcon from '@mui/icons-material/AddOutlined';
 import  VuePres  from './VuePres';
+import AddPrestataire from './AddPrestataire';
 
 
 export default function DataGridDemo() {
@@ -18,13 +20,13 @@ export default function DataGridDemo() {
     {
       field: 'nomEvenement',
       headerName: 'Nom Evenement',
-      width: 250,
+      width: 200,
       editable: false,
     },
     {
       field: 'typeEvenement',
       headerName: 'Type Evenement',
-      width: 250,
+      width: 200,
       editable: false,
     },
     {
@@ -42,13 +44,14 @@ export default function DataGridDemo() {
     {
       field: 'lieu',
       headerName: 'Lieu',
-      width: 200,
+      width: 150,
       editable: false,
     },
     {
       field:'btn1',
       headerName: "Prestataires",
       sortable:false,
+      with:200,
       filterable: false,
       renderCell: row => (
           <Button  onClick={() => onePresClick(row.id)} >
@@ -61,7 +64,11 @@ export default function DataGridDemo() {
     headerName: "",
     sortable: false,
     filterable: false,
-    renderCell: row => <Edit variant="outlined" color='primary'/>
+    renderCell: row => (
+      <Button size='5rem' onClick={()=>oneEditPrest(row.id)}>
+        <AddOutlinedIcon color='primary' variant="outlined"/>
+      </Button>
+    )
   },
   {
     field: 'btn3',
@@ -69,7 +76,7 @@ export default function DataGridDemo() {
     sortable:false,
     filterable: false,
     renderCell: row => (
-      <Button  color='error' onClick={() => oneDelEvent(row.id)} >
+      <Button  color='error' onClick={()=>{oneDelEvent(row.id)}} >
           <DeleteIcon color='error' variant="outlined"/>
       </Button>
     ),
@@ -77,18 +84,23 @@ export default function DataGridDemo() {
   ];
 
   const [rows,setRows]=useState([]);
-  const [open,setOpen]=useState(false);
+  const [ide,setIde]=useState(0);
   const [openO,setOpenO]=useState(false);
+  var open="true";
   const [prestataires, setPrestataires] = useState([]);
 
   useEffect(()=>{
+    callFetchEvents();
+    console.log(rows);
+  },[]);
+
+  const callFetchEvents=()=>{
     const token = accountService.getToken("jwt");
     const client = jwtDecode(token);
     const clientId = client.id;
     console.log(client,clientId);
     fetchEvents(token,clientId);
-    console.log(rows);
-  },[]);
+  }
 
 
   const fetchEvents = (token,userId) => {
@@ -103,14 +115,13 @@ export default function DataGridDemo() {
   const oneDelEvent = id => {
     if (window.confirm("Etes vous sur de vouloir supprimer l'evenement ? :(")) {
         const token = accountService.getToken("jwt");
-        fetch(SERVER_URL+`/event/evenements/${id}`, { 
+        fetch(SERVER_URL+`event/evenements/${id}`, { 
             method: "DELETE",
             headers: {Authorization: token}, 
         })
         .then(response => {
             if (response.ok){
-              fetchEvents();
-              setOpen(true);
+              callFetchEvents();
             } else{
                 alert("Un problème est survenu lors de la suppression! Reéssayer :(");
             }
@@ -119,19 +130,41 @@ export default function DataGridDemo() {
     }
   };
 
+  const oneEditPrest = (id) =>{
+    setIde(id);
+    open="";
+    console.log("open est egal à ",open)
+  }
+
   const onePresClick = id => {
     const token = accountService.getToken("jwt");
-    fetch(SERVER_URL+`event/evenements/${id}/prestations`, {
-        headers: {Authorization: token},
+    setIde(id);
+    fetch(SERVER_URL + `event/evenements/${id}/prestations`, {
+        headers: { Authorization: token },
     })
-        .then(response => response.json())
+        .then(response => {
+            if (response.status === 200) {
+                return response.json();
+            }
+            return null;
+        })
         .then(ownerData => {
-            console.log(ownerData.prestataires);
-            setPrestataires(ownerData.prestataires);
+            // Ajouter le champ "valide" à chaque objet prestataire
+            const ownerDataWithValideField = ownerData.map(item => {
+                return {
+                    ...item,
+                    prestataire: { ...item.prestataire, valide: item.valide }
+                };
+            });
+
+            const prestataires = ownerDataWithValideField.map(item => item.prestataire);
+            console.log(prestataires);
+            setPrestataires(prestataires);
+            console.log(prestataires);
             setOpenO(true);
         })
         .catch(err => console.error(err));
-};
+  };
 
   return (
     <>
@@ -152,10 +185,12 @@ export default function DataGridDemo() {
         />
       </Box>
       <VuePres 
+        ide={ide}
         rows={prestataires}
         open={openO} 
         handleClose={()=>{setOpenO(false)}}
        />
+       {(open==="") ? (<AddPrestataire open={true} ide={ide}/>) : ("")}
     </>
   );
 }
