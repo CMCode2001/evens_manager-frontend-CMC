@@ -124,6 +124,7 @@ const ListPrestataire = (props) => {
                         </Link>
                     )}
                 </div>
+
             </h1>
             {searchTriggered && filterPrestataires().map(pres => (
                 <RowPrestataire

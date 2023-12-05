@@ -229,7 +229,7 @@ export default function PrimarySearchAppBar() {
                 <MailIcon />
               </Badge>
             </IconButton> */}
-            <Link to='/notif' >
+            <Link to='/servicePrestation' >
               <IconButton
                 size="large"
                 aria-label="show 17 new notifications"

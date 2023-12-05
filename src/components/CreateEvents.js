@@ -117,7 +117,7 @@ const CreateEvents = (props) => {
     };
 
 
-    const list = ["Familliale","Religieuse","Seminaire"];
+    const list = ["Familliale","Religieuse","Seminaire", "Professionel","Autres...",];
 
   return (
     <React.Fragment >
@@ -148,12 +148,13 @@ const CreateEvents = (props) => {
                                   {...params}
                                   variant="outlined"
                                   label="Type d'Evenement"
+                                  
                                   />
                               )}
                               // value={dataIn.typeEvenement}
                               onChange={handleTypeEvenementChange}      
                               required
-                          />
+                      />
                   </div>
                   <div className="second-line" >
                       <TextField type="Date" id="date-evenement"  sx={{ml:2,mr:1,mt:1,mb:1, width:"250px"}} 
