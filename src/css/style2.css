@@ -205,3 +205,12 @@ div.bg-light:nth-child(2) {
 .first-line{
     display: flex;
 }
+#StyleDialogue{
+    width: 50rem !important;
+    /* height: 100%; */
+    /* position: relative; */
+}
+div.MuiBox-root:nth-child(1) > div:nth-child(1), .MuiDataGrid-root{
+     justify-content: center; 
+    align-items: center;
+} 

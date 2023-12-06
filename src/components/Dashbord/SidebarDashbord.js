@@ -24,11 +24,11 @@ const SidebarDashBord = () => {
                     <li>
                         <Link to = '/servicePrestation'> <AssignmentTurnedInIcon/> Mes Prestations</Link>
                     </li>
-
-                    {/* <li>
-                        <Link to = "/notif"> <CircleNotificationsIcon/> Mes Notifications</Link>
-                    </li> */}
 {/* 
+                    <li>
+                        <Link to = "/notif"> <CircleNotificationsIcon/> Mes Notifications</Link>
+                    </li>  
+
                     <li>
                         <Link to = '/clientlike'> <TryIcon/> Mentions J'aime </Link>
                     </li> */}

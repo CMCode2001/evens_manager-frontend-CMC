@@ -3,8 +3,7 @@ import BlockCard2 from './BlockCard2';
 import bilan from "../../assets/img/besTakk/bilan.png"
 import solde from "../../assets/img/besTakk/money-bag.png"
 import contact from "../../assets/img/besTakk/customer-service.png"
-import MyEvents from '../MyEvents';
-
+import MonSeparateur from "./MonSeparateur"
 
 
 const MainContentDashbord = () => {
@@ -34,13 +33,10 @@ const MainContentDashbord = () => {
                                 description="8 en attentes"
                             />
                         </div>
+                        <MonSeparateur/>
                         
-                        {/* <div>
-                            <h1 id="special1"> Prestations </h1>
-                                <MyEvents/>
-                        </div> */}
                     </div>
-                {/* </div> */}
+               
             </>
             
         

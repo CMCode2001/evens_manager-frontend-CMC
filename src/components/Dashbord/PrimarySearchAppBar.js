@@ -177,7 +177,7 @@ export default function PrimarySearchAppBar() {
 
   return (
     <Box sx={{ flexGrow: 1 }}>
-      <AppBar position="static">
+      <AppBar position="static" sx={{height:'100px'}} >
         <Toolbar>
 
               <IconButton
@@ -201,6 +201,7 @@ export default function PrimarySearchAppBar() {
                 component="div"
                 sx={{ display: { xs: 'none', sm: 'block' } }}
               >
+                
                   <h1 id='special'>My Prest Dashboard</h1>
 
               </Typography>

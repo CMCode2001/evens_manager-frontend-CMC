@@ -52,9 +52,16 @@ const columns = [
       editable: false,
     },
     {
+        field: 'Client',
+        headerName: 'Du Client',
+        width: 150,
+        editable: false,
+      },
+    {
         field: 'btn2',
         headerName: "",
         sortable: false,
+        width: 150,
         filterable: false,
         renderCell: row =>{
             if(row.row.valide==="en attente"){
@@ -104,6 +111,11 @@ const columns = [
         const prestataire = jwtDecode(roleToken);
         return prestataire.id;
     }
+    // const recupIdClient = () =>{
+    //     const clientRole = accountService.getToken("jwt");
+    //     const client = jwtDecode(clientRole);
+    //     return client.id;
+    // }
 
     const recupEvenements = () =>{
         const token = accountService.getToken("jwt");
