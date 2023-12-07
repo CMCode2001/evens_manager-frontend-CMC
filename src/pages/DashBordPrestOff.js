@@ -4,8 +4,7 @@ import LandingPageDashBord from '../components/LandingPageDashBord';
 const DashBordPrestOff = () => {
     return (
         <div>
-            <LandingPageDashBord />
-                      
+            <LandingPageDashBord />                     
         </div>
     );
 };
