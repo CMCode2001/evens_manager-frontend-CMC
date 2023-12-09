@@ -495,9 +495,15 @@ h1.text-primary:nth-child(4){
 #root > div > div > div.footer-back > div.container-fluid.footer.py-6.my-6.mb-0.bg-light.wow.bounceInUp{
 
 background-color: #fff3d8 !important;
+padding-top: 1.7rem;
 }
 /*** Footer End ***/
-
+div.bg-light:nth-child(4){
+    padding-top: 6rem;
+}
+.first-line{
+    display: flex;
+}
 
 
 

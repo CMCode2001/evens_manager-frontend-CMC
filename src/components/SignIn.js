@@ -39,8 +39,17 @@ const SignInForm = (username) => {
   };
 
   const roleToken = accountService.getToken("jwt");
-  let clientRole = null;
 
+  useEffect(() => {
+    if (typeof isLogin === 'string') {
+        const client = jwtDecode(isLogin);
+        console.log(client.role);
+    } else {
+        console.error('Le token n\'est pas une chaîne valide.');
+    }
+}, [isLogin]);
+
+  let clientRole = null;
   ///// RECUPERATION ID CLIENT CONNECTE
 
   const [cientId,setClientId]= useState(null);
@@ -49,10 +58,10 @@ const SignInForm = (username) => {
     const client = jwtDecode(roleToken);
     clientRole = client.role;
     console.log(clientRole);
+
   } else {
     console.error('Le token n\'est pas une chaîne valide.');
   }
-
   
   ////////////// VERIFIONS/////////////////
   const isMounted = useRef(true);  
@@ -67,6 +76,7 @@ const SignInForm = (username) => {
     };
   }, [isLogin]);
 
+  
   const handleOnSubmit = async (evt) => {
     try {
       evt.preventDefault();
@@ -133,6 +143,14 @@ const SignInForm = (username) => {
   }else if (navigate==="false") {
     return <Navigate to={"/dashbordprest"} />;
   }
+
+  // if (navigateClient){
+  //   return <Navigate to={"/events"} />;
+  // }
+
+  // if (navigatePres){
+  //   return <Navigate to={"/dashbordprest"} />;
+  // }
 
   return (
     <div className="form-contain sign-in-contain">

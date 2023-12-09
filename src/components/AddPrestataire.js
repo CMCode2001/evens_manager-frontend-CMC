@@ -9,6 +9,8 @@ import { Link } from 'react-router-dom';
 import { accountService } from '../_service/account.service';
 import { jwtDecode } from 'jwt-decode';
 import sem from "../assets/img/seminaire.jpg";
+
+
 import { FaLocationDot } from 'react-icons/fa6';
 import { BsPersonWorkspace } from 'react-icons/bs';
 import { Icon } from '@mui/material';
