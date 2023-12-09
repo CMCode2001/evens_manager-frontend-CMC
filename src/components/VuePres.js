@@ -103,9 +103,11 @@ function VuePres(props) {
         }
       };
     
+    let bilan = 0; 
+      
     return (
         <div>
-            <Dialog open={props.open} maxWidth="100%" onClose={props.handleClose}>
+            <Dialog open={props.open} fullScreen onClose={props.handleClose}>
                 <DialogTitle>Prestataires de votre evenement</DialogTitle>
                 <DialogContent>
                 <Box sx={{ height: 650, width: "1100px" }}>
@@ -123,6 +125,12 @@ function VuePres(props) {
                     pageSizeOptions={[15]}
                     disableRowSelectionOnClick
                 />
+                {/* {
+                  props.rows.map(row=>{
+                    bilan =+ row.tarif;
+                  })
+                }
+                <p>{bilan}</p> */}
                 </Box>
                 </DialogContent>
                 <DialogActions>

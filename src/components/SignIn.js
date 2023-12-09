@@ -26,7 +26,7 @@ const SignInForm = (username) => {
   const [isLogin, setIsLogin] = useState(false);
   const [openModal, setOpenModal] = useState(false);
 
-  const [navigate, setNavigate] = useState(false);
+  const [navigate, setNavigate] = useState("other");
 
   const [state, setState] = useState({
     username: "",
@@ -81,13 +81,15 @@ const SignInForm = (username) => {
 
             // Récupérer l'ID du client connecté
             const token = accountService.getToken();
+            const client = jwtDecode(token);
+            const role = client.role;
+            console.log(role);
             fetch(SERVER_URL + "", {
               headers: { Authorization: token },
             })
               .then(response => response.json())
               .then(data => {
                 if (isMounted) {
-
                   handleUpdateUserInfo(data.id);
                   setClientId(data.id);
                   setIsLogin(true);
@@ -97,7 +99,12 @@ const SignInForm = (username) => {
               .catch(err => console.error(err));
 
             sessionStorage.setItem("jwt", response.headers.authorization);
-            setNavigate(true);
+            if (role==="CLIENT") { 
+              setNavigate("true")
+            }else if(role==="PRESTATAIRE") {
+              setNavigate("false")
+            }
+            return null;
           } else {
             setIsLogin(false);
           }
@@ -121,10 +128,10 @@ const SignInForm = (username) => {
         console.error("Erreur lors de la mise à jour des informations du client", error);
       });
   };
- 
-
-  if (navigate) {
+  if (navigate==="true") {
     return <Navigate to={"/"} />;
+  }else if (navigate==="false") {
+    return <Navigate to={"/dashbordprest"} />;
   }
 
   return (

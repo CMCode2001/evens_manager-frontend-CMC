@@ -37,13 +37,19 @@ export default function DataGridDemo() {
     },
     {
       field: 'duree',
-      headerName: 'Duree en jours',
-      width: 150,
+      headerName: 'Duree ',
+      width: 100,
       editable: false,
     },
     {
       field: 'lieu',
       headerName: 'Lieu',
+      width: 150,
+      editable: false,
+    },
+    {
+      field: 'budget',
+      headerName: 'Bilan Evenement',
       width: 150,
       editable: false,
     },
@@ -86,7 +92,7 @@ export default function DataGridDemo() {
   const [rows,setRows]=useState([]);
   const [ide,setIde]=useState(0);
   const [openO,setOpenO]=useState(false);
-  var open="true";
+  var open=false;
   const [prestataires, setPrestataires] = useState([]);
 
   useEffect(()=>{
@@ -131,8 +137,10 @@ export default function DataGridDemo() {
   };
 
   const oneEditPrest = (id) =>{
+    //window.location.reload();
     setIde(id);
-    open="";
+    console.log(ide);
+    open=true;
     console.log("open est egal à ",open)
   }
 
@@ -190,7 +198,8 @@ export default function DataGridDemo() {
         open={openO} 
         handleClose={()=>{setOpenO(false)}}
        />
-       {(open==="") ? (<AddPrestataire open={true} ide={ide}/>) : ("")}
+       {/* {(open===true) ?  : ("")} */}
+       <AddPrestataire open={open} ide={ide}/>
     </>
   );
 }
