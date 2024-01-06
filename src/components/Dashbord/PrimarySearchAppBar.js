@@ -220,7 +220,7 @@ export default function PrimarySearchAppBar() {
           &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
           &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
           &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-          <text> <b>Hello</b>,&nbsp;
+          <text > <strong>Hello</strong>,&nbsp;
           <text id='text-special'> {username}</text>
         </text>
           <Box sx={{ flexGrow: 1 }} />
